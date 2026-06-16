@@ -42,6 +42,22 @@
   .lang-sw{display:flex;align-items:center;gap:.35rem;font-size:13px;font-weight:600;color:#42566a;
     border:1px solid var(--line);padding:6px 12px;border-radius:20px;cursor:pointer;transition:.2s;white-space:nowrap}
   .lang-sw:hover{color:var(--teal);border-color:var(--teal)}
+  /* Hamburger + mobile drawer */
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+  .hamburger span{display:block;width:24px;height:2px;border-radius:2px;background:var(--ink);transition:transform .3s,opacity .3s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-overlay{position:fixed;inset:0;background:rgba(13,40,60,.45);z-index:150;opacity:0;pointer-events:none;transition:opacity .3s}
+  .mobile-overlay.open{opacity:1;pointer-events:auto}
+  .mobile-nav{position:fixed;top:0;right:-105%;width:min(80vw,300px);height:100vh;height:100dvh;background:#fff;z-index:200;
+    box-shadow:-8px 0 30px rgba(14,90,138,.18);padding:72px 24px 24px;display:flex;flex-direction:column;gap:2px;
+    transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto}
+  .mobile-nav.open{right:0}
+  .mobile-nav a{padding:13px 4px;font-size:16.5px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line)}
+  .mobile-nav a:hover{color:var(--teal)}
+  .mobile-nav .mbook{margin-top:18px;border-bottom:none;justify-content:center}
+  .mobile-nav .close{position:absolute;top:16px;right:16px;width:38px;height:38px;font-size:28px;line-height:1;background:none;border:none;cursor:pointer;color:var(--ink)}
   .btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:24px;padding:11px 22px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;transition:.2s;white-space:nowrap}
   .btn-book{background:var(--red);color:#fff}
   .btn-book:hover{background:#d83e30}
@@ -216,6 +232,9 @@
   /* ===== Responsive ===== */
   @media(max-width:900px){
     .menu{display:none}
+    .hamburger{display:flex}
+    .nav>.btn-book{display:none}
+    .lang-sw{margin-left:auto}
     .stats .wrap{grid-template-columns:repeat(2,1fr);gap:28px}
     .gallery{grid-template-columns:1fr 1fr}
     .features{grid-template-columns:repeat(2,1fr)}
@@ -260,8 +279,23 @@
     </nav>
     <div class="lang-sw" aria-label="Toggle language">🌐 <span class="lang-sw__label">TH</span></div>
     <button class="btn btn-book" data-lang-th="📅 จองทัวร์" data-lang-en="📅 Book Tour">📅 จองทัวร์</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
+
+<!-- Mobile drawer -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<aside class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <button class="close" id="mobileClose" aria-label="Close menu">&times;</button>
+  <a href="#" data-lang-th="หน้าแรก" data-lang-en="Home">หน้าแรก</a>
+  <a href="#packages" data-lang-th="แพ็กเกจทัวร์" data-lang-en="Packages">แพ็กเกจทัวร์</a>
+  <a href="#transfer" data-lang-th="รถรับส่งสนามบิน" data-lang-en="Transfers">รถรับส่งสนามบิน</a>
+  <a href="#packages" data-lang-th="โปรแกรมทัวร์" data-lang-en="Programs">โปรแกรมทัวร์</a>
+  <a href="#reviews" data-lang-th="รีวิวลูกค้า" data-lang-en="Reviews">รีวิวลูกค้า</a>
+  <a href="#steps" data-lang-th="วิธีจอง" data-lang-en="How to Book">วิธีจอง</a>
+  <a href="#contact" data-lang-th="ติดต่อเรา" data-lang-en="Contact">ติดต่อเรา</a>
+  <a class="btn btn-book mbook" href="#contact" data-lang-th="📅 จองทัวร์" data-lang-en="📅 Book Tour">📅 จองทัวร์</a>
+</aside>
 
 <main>
 
@@ -589,6 +623,17 @@
     if(topBtn)topBtn.classList.toggle('show',window.scrollY>520);
   },{passive:true});
   if(topBtn)topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+  // mobile drawer
+  var ham=document.getElementById('hamburger'),mnav=document.getElementById('mobileNav'),
+      mov=document.getElementById('mobileOverlay'),mcl=document.getElementById('mobileClose');
+  if(ham&&mnav){
+    function openNav(){mnav.classList.add('open');mov.classList.add('open');ham.classList.add('open');ham.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+    function closeNav(){mnav.classList.remove('open');mov.classList.remove('open');ham.classList.remove('open');ham.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+    ham.addEventListener('click',function(){mnav.classList.contains('open')?closeNav():openNav();});
+    mov.addEventListener('click',closeNav);
+    if(mcl)mcl.addEventListener('click',closeNav);
+    mnav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeNav);});
+  }
 })();
 </script>
 
