@@ -62,6 +62,8 @@ body{
   text-decoration:none;
   display:flex;align-items:center;gap:.5rem;
   letter-spacing:0;
+  white-space:nowrap;
+  flex-shrink:0;
 }
 .nav__logo-arc{
   display:flex;
@@ -96,6 +98,8 @@ body{
   padding:.3rem .6rem;
   transition:color .25s,border-color .25s;
   user-select:none;
+  white-space:nowrap;
+  flex-shrink:0;
 }
 .lang-sw:hover{color:var(--cerulean);border-color:var(--cerulean)}
 .lang-sw svg{flex-shrink:0}
@@ -149,6 +153,16 @@ body{
 @media(min-width:768px){
   .nav__links{display:flex}
   .hamburger{display:none}
+}
+/* Mobile nav fit */
+@media(max-width:767px){
+  .nav{padding:1rem 1.25rem;gap:.6rem}
+  .nav__right{gap:.6rem}
+  .nav__logo{font-size:1.2rem}
+  .nav__cta{padding:.5rem .75rem;font-size:.72rem}
+}
+@media(max-width:480px){
+  .nav__cta{display:none}
 }
 
 /* ─── HERO ─── */
