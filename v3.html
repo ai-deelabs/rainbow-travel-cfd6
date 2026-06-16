@@ -3,907 +3,1452 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rainbow Travel — ทัวร์คุณภาพ ประสบการณ์ที่ไม่ลืมเลย</title>
-<meta name="description" content="Rainbow Travel จัดทัวร์ต่างประเทศและในประเทศ แพ็คเกจทัวร์ราคาดี บริการประทับใจ ไกด์ภาษาไทย">
+<title>Rainbow Travel — แพ็คเกจทัวร์ระดับพรีเมียม</title>
+<meta name="description" content="Rainbow Travel ทัวร์คุณภาพสูง แพ็คเกจท่องเที่ยวทั่วโลก จองง่าย ราคาดี บริการประทับใจ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
 <style>
-:root {
-  --white: #F7F9FC;
-  --iris: #4F6FE8;
-  --yellow: #FFD300;
-  --coral: #FF5C39;
-  --dark: #1A1A2E;
-  --mid: #3A3A5C;
-  --iris-light: #C8D4FA;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --midnight:#ffffff;
+  --midnight-2:#f4f8fb;
+  --midnight-3:#eef4f8;
+  --cerulean:#1ba6c4;
+  --cerulean-dim:rgba(27,166,196,0.15);
+  --cerulean-glow:rgba(27,166,196,0.08);
+  --gold:#f7941d;
+  --white:#1d3744;
+  --muted:#5a6b78;
+  --body-font:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+}
+
 html{scroll-behavior:smooth}
+
 body{
-  font-family:'IBM Plex Sans Thai','Sukhumvit Set',sans-serif;
-  background:var(--white);
-  color:var(--dark);
+  background:var(--midnight);
+  color:var(--white);
+  font-family:var(--body-font);
+  font-weight:300;
+  font-size:16px;
   line-height:1.8;
   word-break:break-word;
   overflow-wrap:break-word;
   overflow-x:hidden;
 }
-img{max-width:100%;height:auto;display:block}
-h1,h2,h3,h4{font-family:'Zilla Slab','IBM Plex Sans Thai',serif;line-height:1.5;font-weight:700}
-a{text-decoration:none}
 
-/* RAINBOW RULE */
-.rb-rule{height:2px;background:linear-gradient(90deg,#FF5C39 0%,#FFD300 33%,#4F6FE8 66%,#FF5C39 100%);border:none;width:100%}
+/* ─── NAVBAR ─── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1.2rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,padding .3s,backdrop-filter .4s;
+}
+.nav.scrolled{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  padding:.8rem 2rem;
+  border-bottom:1px solid rgba(27,166,196,0.1);
+}
+.nav__logo{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.5rem;
+  color:var(--white);
+  text-decoration:none;
+  display:flex;align-items:center;gap:.5rem;
+  letter-spacing:0;
+}
+.nav__logo-arc{
+  display:flex;
+  background:linear-gradient(135deg,#ff6b6b,#f5c842,#00aaff,#7b61ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-size:1.7rem;
+}
+.nav__links{
+  display:none;
+  list-style:none;
+  gap:2rem;
+  align-items:center;
+}
+.nav__links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:.85rem;
+  font-weight:400;
+  transition:color .25s;
+  padding:.5rem 0;
+}
+.nav__links a:hover{color:var(--cerulean)}
+.nav__right{display:flex;align-items:center;gap:1.2rem}
+.lang-sw{
+  display:flex;align-items:center;gap:.35rem;
+  font-size:.78rem;font-weight:400;
+  color:var(--muted);
+  border:1px solid rgba(29,55,68,0.2);
+  border-radius:4px;
+  padding:.3rem .6rem;
+  transition:color .25s,border-color .25s;
+  user-select:none;
+}
+.lang-sw:hover{color:var(--cerulean);border-color:var(--cerulean)}
+.lang-sw svg{flex-shrink:0}
+.nav__cta{
+  background:var(--gold);
+  color:#ffffff;
+  border:none;
+  border-radius:4px;
+  padding:.6rem 1.2rem;
+  font-size:.82rem;
+  font-weight:600;
+  cursor:pointer;
+  text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+  white-space:nowrap;
+}
+.nav__cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(247,148,29,.35)}
+.hamburger{
+  display:flex;flex-direction:column;gap:5px;cursor:pointer;
+  padding:.4rem;
+}
+.hamburger span{
+  display:block;width:22px;height:1.5px;
+  background:var(--white);
+  transition:transform .3s,opacity .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .35s,padding .3s,box-shadow .35s}
-.nav.scrolled{background:rgba(247,249,252,.96);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(79,111,232,.12);padding:.6rem 1.5rem}
-.nav-logo{font-family:'Zilla Slab',serif;font-size:1.25rem;font-weight:700;color:var(--white);display:flex;align-items:center;gap:.5rem;transition:color .3s}
-.nav.scrolled .nav-logo{color:var(--dark)}
-.logo-arc{display:inline-block;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#FF5C39,#FFD300,#4F6FE8);flex-shrink:0}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.nav-links{display:none;list-style:none;gap:1.4rem;align-items:center}
-.nav-links a{color:rgba(255,255,255,.9);font-size:.88rem;font-weight:500;transition:color .2s}
-.nav.scrolled .nav-links a{color:var(--dark)}
-.nav-links a:hover{color:var(--yellow)}
-.nav.scrolled .nav-links a:hover{color:var(--iris)}
-.nav-cta-link{background:var(--yellow);color:var(--dark)!important;padding:.45rem 1.1rem;border-radius:4px;font-weight:700!important}
-.nav-cta-link:hover{background:var(--coral);color:var(--white)!important}
-.lang-sw{display:flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:600;color:var(--white);border:1px solid rgba(255,255,255,.45);padding:.28rem .55rem;border-radius:3px;background:rgba(0,0,0,.2);transition:all .2s;white-space:nowrap}
-.nav.scrolled .lang-sw{color:var(--dark);border-color:rgba(26,26,46,.3);background:rgba(26,26,46,.06)}
-.lang-sw:hover{background:rgba(255,255,255,.2)}
-.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:24px;height:2px;border-radius:2px;background:var(--white);transition:background .3s}
-.nav.scrolled .hamburger span{background:var(--dark)}
-@media(min-width:768px){.nav-links{display:flex}.hamburger{display:none}}
+/* Mobile menu */
+.mobile-menu{
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;
+  background:rgba(255,255,255,.97);
+  flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:2.5rem;
+  padding:2rem;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--white);
+  text-decoration:none;
+  font-size:1.5rem;
+  font-family:var(--serif);
+  font-style:italic;
+}
+.mobile-menu a:hover{color:var(--cerulean)}
 
-/* MOBILE MENU */
-.mob-menu{position:fixed;top:0;right:-100%;width:min(80vw,300px);height:100vh;background:var(--dark);z-index:999;padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.5rem;transition:right .4s cubic-bezier(.4,0,.2,1)}
-.mob-menu.open{right:0}
-.mob-menu a{color:var(--white);font-family:'Zilla Slab',serif;font-size:1.25rem;font-weight:600;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.1);display:block}
-.mob-menu a:hover{color:var(--yellow)}
-.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s}
-.mob-overlay.open{opacity:1;pointer-events:all}
-
-/* HERO */
-.hero{min-height:100vh;position:relative;overflow:hidden;background:var(--dark);display:flex;flex-direction:column;justify-content:flex-end}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1650509570418-5a9ca4aa01a3?w=1600&h=1000&fit=crop') center/cover;animation:hzoom 9s ease-out forwards}
-@keyframes hzoom{from{transform:scale(1.08)}to{transform:scale(1)}}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,26,46,.3) 0%,rgba(26,26,46,.1) 40%,rgba(26,26,46,.82) 100%)}
-.hero-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-9deg);font-family:'Zilla Slab',serif;font-size:clamp(70px,17vw,210px);font-weight:700;color:rgba(255,255,255,.055);white-space:nowrap;pointer-events:none;line-height:1;letter-spacing:-2px}
-.hero-content{position:relative;z-index:2;padding:8rem 1.5rem 3rem;max-width:1200px;width:100%;margin:0 auto}
-.hero-tag{display:inline-block;background:var(--coral);color:var(--white);font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.38rem .5rem .38rem 1rem;margin-bottom:1.2rem;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);padding-right:1.3rem}
-.hero-eyebrow{font-family:'Caveat',cursive;font-size:clamp(1rem,2.8vw,1.5rem);color:var(--yellow);margin-bottom:.5rem;font-weight:600;display:block}
-.hero h1{font-size:clamp(2.4rem,7.5vw,5.8rem);color:var(--white);line-height:1.1;margin-bottom:1.5rem}
-.hero h1 em{font-style:normal;color:var(--yellow);display:block}
-.hero-desc{color:rgba(255,255,255,.82);font-size:clamp(.95rem,2vw,1.08rem);max-width:500px;margin-bottom:2rem;line-height:1.9}
-.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
-.btn-y{background:var(--yellow);color:var(--dark);font-weight:700;font-size:1rem;padding:.88rem 1.9rem;border-radius:4px;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;min-height:44px}
-.btn-y:hover{background:var(--coral);color:var(--white);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,92,57,.4)}
-.btn-ol{border:2px solid rgba(255,255,255,.55);color:var(--white);font-weight:600;font-size:1rem;padding:.78rem 1.7rem;border-radius:4px;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;background:transparent}
-.btn-ol:hover{border-color:var(--yellow);color:var(--yellow)}
-.hero-stats{position:relative;z-index:2;background:rgba(26,26,46,.85);backdrop-filter:blur(8px);border-top:2px solid transparent;border-image:linear-gradient(90deg,#FF5C39,#FFD300,#4F6FE8) 1;padding:1.2rem 1.5rem}
-.hero-stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center}
-.stat-n{font-family:'Zilla Slab',serif;font-size:clamp(1.4rem,4vw,2.3rem);font-weight:700;color:var(--yellow);display:block;line-height:1}
-.stat-l{font-size:.76rem;color:rgba(255,255,255,.65);margin-top:.3rem;display:block;line-height:1.6}
-
-/* WRAP */
-.sw{max-width:1200px;margin:0 auto;padding:0 1.5rem}
-
-/* TICKER */
-.ticker{background:var(--iris);overflow:hidden;padding:.65rem 0}
-.tk-track{display:flex;gap:2.5rem;animation:tkm 28s linear infinite;white-space:nowrap;width:max-content}
-.tk-track:hover{animation-play-state:paused}
-@keyframes tkm{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.tk-item{display:flex;align-items:center;gap:.5rem;color:var(--white);font-size:.8rem;font-weight:500;flex-shrink:0}
-.tk-dot{width:5px;height:5px;background:var(--yellow);border-radius:50%;flex-shrink:0}
-
-/* SECTION HEADER */
-.ed-head{margin-bottom:2.5rem}
-.ed-head .issue{font-family:'Zilla Slab',serif;font-size:.66rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--coral);display:block;margin-bottom:.5rem}
-.ed-head h2{font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.2;color:var(--dark)}
-.ed-head .hand{font-family:'Caveat',cursive;font-size:clamp(.95rem,2.4vw,1.35rem);color:var(--iris);margin-top:.45rem;display:block}
-
-/* PACKAGES */
-.pkg-sec{padding:5rem 0;background:var(--white);position:relative;overflow:hidden}
-.pkg-sec::before{content:'TRAVEL';position:absolute;right:-1%;top:8%;font-family:'Zilla Slab',serif;font-size:clamp(70px,13vw,155px);font-weight:700;color:rgba(79,111,232,.045);pointer-events:none;letter-spacing:-4px;line-height:1}
-.pkg-grid{display:grid;grid-template-columns:1fr;gap:1.8rem}
-.pkg-card{position:relative;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .35s,box-shadow .35s;background:var(--dark)}
-.pkg-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(26,26,46,.28)}
-.pkg-card img{width:100%;height:240px;object-fit:cover;transition:transform .6s;display:block}
-.pkg-card:hover img{transform:scale(1.05)}
-.pkg-body{padding:1.4rem;background:var(--dark);position:relative}
-.pkg-body::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FF5C39,#FFD300,#4F6FE8)}
-.pkg-wm{position:absolute;top:.8rem;right:.8rem;font-family:'Zilla Slab',serif;font-size:3rem;font-weight:700;color:rgba(255,255,255,.045);line-height:1;pointer-events:none;text-align:right}
-.pkg-tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.22rem .55rem;border-radius:2px;margin-bottom:.75rem}
-.tag-hot{background:var(--coral);color:var(--white)}
-.tag-new{background:var(--iris);color:var(--white)}
-.tag-sale{background:var(--yellow);color:var(--dark)}
-.pkg-body h3{font-size:clamp(1rem,3vw,1.45rem);color:var(--white);margin-bottom:.5rem;line-height:1.4}
-.pkg-meta{display:flex;flex-wrap:wrap;gap:.7rem;margin:.75rem 0;font-size:.78rem;color:rgba(255,255,255,.6)}
-.pkg-mi{display:flex;align-items:center;gap:.3rem}
-.pkg-pr-row{display:flex;align-items:baseline;justify-content:space-between;margin-top:1rem;flex-wrap:wrap;gap:.5rem}
-.pkg-pr{font-family:'Zilla Slab',serif;font-size:1.55rem;font-weight:700;color:var(--yellow)}
-.pkg-pr-u{font-size:.72rem;color:rgba(255,255,255,.45);margin-left:.25rem}
-.pkg-btn{background:var(--yellow);color:var(--dark);font-weight:700;font-size:.84rem;padding:.55rem 1.1rem;border-radius:3px;border:none;cursor:pointer;transition:all .2s;min-height:44px;display:flex;align-items:center;gap:.3rem;font-family:'IBM Plex Sans Thai',sans-serif}
-.pkg-btn:hover{background:var(--coral);color:var(--white)}
 @media(min-width:768px){
-  .pkg-grid{grid-template-columns:repeat(2,1fr)}
-  .pkg-card.feat{grid-column:1/-1;display:grid;grid-template-columns:1.4fr 1fr}
-  .pkg-card.feat img{height:100%;min-height:340px}
-  .pkg-card.feat .pkg-body{display:flex;flex-direction:column;justify-content:space-between;padding:2rem}
-  .pkg-card.feat .pkg-body h3{font-size:1.9rem}
-}
-@media(min-width:1100px){
-  .pkg-grid{grid-template-columns:repeat(3,1fr)}
-  .pkg-card.feat{grid-column:1/3}
+  .nav__links{display:flex}
+  .hamburger{display:none}
 }
 
-/* WHY — diagonal */
-.why-sec{position:relative;background:var(--iris);padding:7rem 0 9rem;overflow:hidden}
-.why-sec::before{content:'';position:absolute;top:-60px;left:0;right:0;height:120px;background:var(--white);clip-path:polygon(0 0,100% 0,100% 40%,0 100%)}
-.why-sec::after{content:'';position:absolute;bottom:-60px;left:0;right:0;height:120px;background:var(--white);clip-path:polygon(0 40%,100% 0,100% 100%,0 100%)}
-.why-wm{position:absolute;top:50%;left:-4%;transform:translateY(-50%) rotate(-90deg);font-family:'Zilla Slab',serif;font-size:clamp(55px,11vw,125px);font-weight:700;color:rgba(255,255,255,.065);pointer-events:none;white-space:nowrap}
-.why-inner{position:relative;z-index:1}
-.why-inner .ed-head h2{color:var(--white)}
-.why-inner .ed-head .issue{color:var(--yellow)}
-.why-inner .ed-head .hand{color:rgba(255,255,255,.8)}
-.why-grid{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2rem}
-.why-card{background:rgba(255,255,255,.11);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;transition:all .3s}
-.why-card:hover{background:rgba(255,255,255,.19);transform:translateY(-4px)}
-.why-icon{width:46px;height:46px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem;color:var(--dark)}
-.why-card h3{font-size:1.05rem;color:var(--white);margin-bottom:.5rem;line-height:1.5}
-.why-card p{font-size:.875rem;color:rgba(255,255,255,.72);line-height:1.9}
-@media(min-width:600px){.why-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:900px){.why-grid{grid-template-columns:repeat(3,1fr)}}
-
-/* DESTINATIONS */
-.dest-sec{padding:5rem 0;background:var(--white);position:relative}
-.dest-sec::before{content:'DESTINATIONS';position:absolute;left:0;bottom:4%;font-family:'Zilla Slab',serif;font-size:clamp(36px,7vw,95px);font-weight:700;color:rgba(79,111,232,.05);pointer-events:none;letter-spacing:-2px;line-height:1}
-.dest-scr{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;-webkit-overflow-scrolling:touch}
-.dest-scr::-webkit-scrollbar{display:none}
-.dest-track{display:flex;gap:1.1rem;padding:.5rem 1.5rem 1.5rem;width:max-content}
-.dest-card{position:relative;width:220px;flex-shrink:0;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s}
-.dest-card:hover{transform:translateY(-8px) rotate(1deg);box-shadow:0 20px 48px rgba(26,26,46,.2)}
-.dest-card img{width:100%;height:300px;object-fit:cover;transition:transform .5s;display:block}
-.dest-card:hover img{transform:scale(1.08)}
-.dest-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,46,.9) 0%,transparent 55%)}
-.dest-lbl{position:absolute;bottom:1.1rem;left:1.1rem;right:1.1rem}
-.dest-ctry{font-family:'Caveat',cursive;font-size:.88rem;color:var(--yellow);display:block;margin-bottom:.15rem}
-.dest-city{font-family:'Zilla Slab',serif;font-size:1.45rem;font-weight:700;color:var(--white);line-height:1.1}
-.dest-pkgs{display:block;font-size:.7rem;color:rgba(255,255,255,.6);margin-top:.25rem}
-
-/* DEALS */
-.deals-sec{padding:4rem 0;background:var(--dark);position:relative;overflow:hidden}
-.deals-sec::before{content:'DEAL';position:absolute;top:-8%;right:3%;font-family:'Zilla Slab',serif;font-size:clamp(70px,17vw,195px);font-weight:700;color:rgba(255,255,255,.03);pointer-events:none}
-.deals-inner{position:relative;z-index:1}
-.deals-hdr{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem}
-.deals-hdr h2{font-size:clamp(1.6rem,4vw,2.4rem);color:var(--white)}
-.deals-hdr .issue{color:var(--yellow)}
-.deal-list{display:flex;flex-direction:column;gap:1rem}
-.deal-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--coral);padding:1.2rem 1.4rem;border-radius:4px;display:flex;flex-direction:column;gap:.6rem;transition:all .3s}
-.deal-item:nth-child(2n){border-left-color:var(--yellow)}
-.deal-item:nth-child(3n){border-left-color:var(--iris)}
-.deal-item:hover{background:rgba(255,255,255,.1);transform:translateX(4px)}
-.deal-name{font-family:'Zilla Slab',serif;font-size:1.05rem;font-weight:600;color:var(--white)}
-.deal-bot{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between}
-.deal-badges{display:flex;flex-wrap:wrap;gap:.6rem}
-.deal-bdg{font-size:.68rem;padding:.22rem .55rem;border-radius:3px;font-weight:600;display:flex;align-items:center;gap:.25rem}
-.bdg-days{background:rgba(79,111,232,.2);color:var(--iris-light)}
-.bdg-inc{background:rgba(255,211,0,.15);color:var(--yellow)}
-.deal-pr{display:flex;align-items:baseline;gap:.4rem}
-.deal-old{font-size:.78rem;color:rgba(255,255,255,.38);text-decoration:line-through}
-.deal-new{font-family:'Zilla Slab',serif;font-size:1.35rem;font-weight:700;color:var(--yellow)}
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+  padding-top:6rem;
+}
+.hero__bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1728242298754-02a7a4e3a109?w=1600&h=1000&fit=crop');
+  background-size:cover;background-position:center;
+  filter:saturate(1) brightness(1);
+  transform:scale(1.05);
+  transition:transform 8s ease-out;
+}
+.hero__bg.loaded{transform:scale(1)}
+.hero__overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255,255,255,.45) 42%,
+    rgba(255,255,255,.9) 74%,
+    var(--midnight) 100%
+  );
+}
+/* cerulean color grading strip */
+.hero__accent{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 70% 40%, rgba(27,166,196,0.18) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero__content{
+  position:relative;z-index:2;
+  padding:0 1.5rem 4rem;
+  max-width:100%;
+}
+.hero__tag{
+  font-size:.72rem;
+  font-weight:400;
+  letter-spacing:.2em;
+  color:var(--cerulean);
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.hero__tag::before{
+  content:'';display:block;width:2rem;height:1px;background:var(--cerulean);
+}
+.hero__heading{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(2.8rem,11vw,6rem);
+  line-height:1.08;
+  color:var(--white);
+  margin-bottom:1.5rem;
+  letter-spacing:0;
+}
+.hero__heading em{
+  color:var(--cerulean);
+  font-style:italic;
+}
+/* bleed: heading spills past its column on desktop */
 @media(min-width:768px){
-  .deal-item{flex-direction:row;align-items:center;justify-content:space-between}
+  .hero__content{
+    padding:0 5vw 5rem;
+    max-width:75vw;
+  }
+  .hero__heading{
+    font-size:clamp(4rem,7vw,6.5rem);
+    margin-right:-8vw;
+  }
+}
+.hero__sub{
+  font-size:.95rem;
+  font-weight:300;
+  color:var(--muted);
+  max-width:480px;
+  margin-bottom:2rem;
+  line-height:1.9;
+}
+.hero__actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.btn-primary{
+  background:var(--gold);
+  color:#ffffff;
+  border:none;border-radius:4px;
+  padding:.9rem 2rem;
+  font-size:.9rem;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.5rem;
+  transition:transform .2s,box-shadow .2s;
+  min-height:44px;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(247,148,29,.4)}
+.btn-ghost{
+  background:transparent;
+  color:var(--white);
+  border:1px solid rgba(29,55,68,0.3);
+  border-radius:4px;
+  padding:.9rem 2rem;
+  font-size:.9rem;font-weight:400;
+  cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.5rem;
+  transition:border-color .25s,color .25s;
+  min-height:44px;
+}
+.btn-ghost:hover{border-color:var(--cerulean);color:var(--cerulean)}
+
+/* diagonal clip between hero and next section */
+.hero::after{
+  content:'';
+  position:absolute;bottom:-2px;left:0;right:0;height:120px;
+  background:var(--midnight);
+  clip-path:polygon(0 100%,100% 100%,100% 40%,0 100%);
+  z-index:3;
 }
 
-/* HOW */
-.how-sec{padding:5rem 0;background:var(--white)}
-.how-steps{display:flex;flex-direction:column;gap:0;margin-top:2.5rem}
-.how-step{display:flex;gap:1.4rem;position:relative;padding-bottom:2.5rem}
-.how-step:last-child{padding-bottom:0}
-.how-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
-.how-num{width:50px;height:50px;border-radius:50%;background:var(--dark);color:var(--yellow);font-family:'Zilla Slab',serif;font-size:1.25rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
-.how-step:nth-child(2) .how-num{background:var(--iris);color:var(--white)}
-.how-step:nth-child(3) .how-num{background:var(--coral);color:var(--white)}
-.how-step:nth-child(4) .how-num{background:var(--yellow);color:var(--dark)}
-.how-line{width:2px;flex:1;background:linear-gradient(to bottom,var(--iris),transparent);margin-top:4px}
-.how-step:last-child .how-line{display:none}
-.how-body{padding-top:.5rem}
-.how-body h3{font-size:1.1rem;margin-bottom:.45rem;color:var(--dark);line-height:1.5}
-.how-body p{font-size:.875rem;color:#555;line-height:1.9}
+/* ─── SCROLL REVEAL ─── */
+.reveal{
+  opacity:0;
+  transform:translateY(36px);
+  transition:opacity .7s ease-out,transform .7s ease-out;
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{
+  opacity:0;transform:translateX(-40px);
+  transition:opacity .7s ease-out,transform .7s ease-out;
+}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{
+  opacity:0;transform:translateX(40px);
+  transition:opacity .7s ease-out,transform .7s ease-out;
+}
+.reveal-right.visible{opacity:1;transform:none}
+
+/* ─── SECTION BASE ─── */
+.section{padding:5rem 1.5rem}
+.section__label{
+  font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--cerulean);
+  margin-bottom:1rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.section__label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--cerulean)}
+.section__title{
+  font-family:var(--serif);font-style:italic;
+  font-weight:300;
+  font-size:clamp(2rem,6vw,3.5rem);
+  line-height:1.2;
+  margin-bottom:1rem;
+  letter-spacing:0;
+}
+.section__body{
+  color:var(--muted);
+  font-weight:300;
+  font-size:.92rem;
+  line-height:1.9;
+  max-width:560px;
+}
 @media(min-width:768px){
-  .how-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
-  .how-step{flex-direction:column;padding-bottom:0}
-  .how-left{flex-direction:row;margin-bottom:1rem}
-  .how-line{display:none}
-  .how-body{padding-top:0}
+  .section{padding:7rem 5vw}
 }
 
-/* TESTIMONIALS */
-.testi-sec{padding:5rem 0;background:#EFF2FC;position:relative;overflow:hidden}
-.testi-sec::after{content:'\201C';position:absolute;right:-2%;top:-8%;font-family:'Zilla Slab',serif;font-size:clamp(140px,24vw,290px);font-weight:700;color:rgba(79,111,232,.07);line-height:1;pointer-events:none}
-.testi-grid{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2rem}
-.testi-card{background:var(--white);border-radius:8px;padding:1.7rem;position:relative;transition:all .3s;border-top:3px solid var(--coral)}
-.testi-card:nth-child(2){border-top-color:var(--iris)}
-.testi-card:nth-child(3){border-top-color:var(--yellow)}
-.testi-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(79,111,232,.15)}
-.testi-stars{display:flex;gap:3px;margin-bottom:.9rem;color:var(--yellow)}
-.testi-q{font-size:.93rem;color:#444;line-height:1.9;margin-bottom:1.1rem;font-style:italic}
-.testi-auth{display:flex;align-items:center;gap:.8rem}
-.testi-av{width:42px;height:42px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.testi-name{font-weight:700;font-size:.88rem;color:var(--dark)}
-.testi-trip{font-size:.72rem;color:var(--iris)}
-@media(min-width:768px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
+/* ─── DESTINATIONS / TOUR PACKAGES ─── */
+.tours{background:var(--midnight)}
+.tours__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1.5rem;
+  margin-top:3rem;
+}
+@media(min-width:600px){
+  .tours__grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1024px){
+  .tours__grid{grid-template-columns:repeat(3,1fr)}
+}
+.tour-card{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--midnight-3);
+  cursor:pointer;
+  transition:transform .35s ease,box-shadow .35s ease;
+  border:1px solid rgba(27,166,196,0.08);
+}
+.tour-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(27,166,196,0.18),0 0 0 1px rgba(27,166,196,0.2);
+}
+.tour-card__img{
+  width:100%;height:220px;
+  object-fit:cover;
+  filter:saturate(1) brightness(1);
+  transition:filter .5s ease,transform .5s ease;
+  display:block;
+}
+.tour-card:hover .tour-card__img{
+  filter:saturate(1.1) brightness(1.03);
+  transform:scale(1.04);
+}
+/* cerulean tint overlay on hover */
+.tour-card__img-wrap{
+  position:relative;overflow:hidden;
+}
+.tour-card__img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 30%,rgba(255,255,255,.9) 100%);
+  pointer-events:none;
+}
+.tour-card__cerulean{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(27,166,196,0.22) 0%,transparent 70%);
+  opacity:0;transition:opacity .4s;
+  pointer-events:none;z-index:1;
+}
+.tour-card:hover .tour-card__cerulean{opacity:1}
+.tour-card__body{padding:1.25rem 1.25rem 1.5rem}
+.tour-card__dest{
+  font-size:.68rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--cerulean);
+  margin-bottom:.4rem;
+}
+.tour-card__name{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.35rem;line-height:1.3;
+  color:var(--white);margin-bottom:.6rem;
+  letter-spacing:0;
+}
+.tour-card__meta{
+  display:flex;align-items:center;gap:1rem;
+  font-size:.78rem;color:var(--muted);
+  margin-bottom:1rem;
+}
+.tour-card__meta span{display:flex;align-items:center;gap:.3rem}
+.tour-card__price{
+  display:flex;align-items:baseline;gap:.4rem;
+}
+.tour-card__price-label{font-size:.7rem;color:var(--muted)}
+.tour-card__price-num{
+  font-size:1.4rem;font-weight:600;
+  color:var(--gold);
+  font-family:var(--serif);font-style:italic;
+  letter-spacing:0;
+}
+.tour-card__price-unit{font-size:.75rem;color:var(--muted)}
 
-/* CTA */
-.cta-sec{position:relative;padding:6rem 0;background:var(--dark);overflow:hidden;text-align:center}
-.cta-sec::before{content:'FLY';position:absolute;left:-1%;top:50%;transform:translateY(-50%);font-family:'Zilla Slab',serif;font-size:clamp(70px,19vw,240px);font-weight:700;color:rgba(255,255,255,.04);pointer-events:none;line-height:1}
-.cta-inner{position:relative;z-index:1}
-.cta-tag{display:inline-block;background:var(--coral);color:var(--white);font-size:.68rem;letter-spacing:2px;font-weight:700;text-transform:uppercase;padding:.32rem .85rem;border-radius:2px;margin-bottom:1.4rem}
-.cta-inner h2{font-size:clamp(1.8rem,5vw,3.4rem);color:var(--white);margin-bottom:.7rem;line-height:1.2}
-.cta-inner h2 span{color:var(--yellow)}
-.cta-hand{font-family:'Caveat',cursive;font-size:clamp(1rem,2.8vw,1.5rem);color:rgba(255,255,255,.68);margin-bottom:2rem;display:block}
-.cta-form{max-width:580px;margin:0 auto 2rem;display:flex;flex-direction:column;gap:1rem}
-.cta-row{display:flex;flex-direction:column;gap:1rem}
-.cta-inp{flex:1;padding:.88rem 1.1rem;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:var(--white);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.93rem;border-radius:4px;outline:none;transition:border-color .2s;min-height:44px}
-.cta-inp::placeholder{color:rgba(255,255,255,.38)}
-.cta-inp:focus{border-color:var(--yellow)}
-@media(min-width:600px){.cta-row{flex-direction:row}}
-.cta-contacts{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-top:2rem}
-.cta-ci{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.7);font-size:.88rem;transition:color .2s}
-.cta-ci:hover{color:var(--yellow)}
+/* featured card — spans 2 cols on desktop */
+@media(min-width:1024px){
+  .tour-card--featured{grid-column:span 2}
+  .tour-card--featured .tour-card__img{height:320px}
+}
 
-/* FOOTER */
-.footer{background:#0E0E1E;padding:3rem 0 1.5rem}
-.ft-grid{display:grid;grid-template-columns:1fr;gap:2rem;margin-bottom:2.5rem}
-.ft-brand-logo{font-family:'Zilla Slab',serif;font-size:1.35rem;font-weight:700;color:var(--white);display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem}
-.ft-brand p{font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.8}
-.ft-col h4{font-size:.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);margin-bottom:.9rem}
-.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
-.ft-col ul li a{color:rgba(255,255,255,.5);font-size:.84rem;transition:color .2s}
-.ft-col ul li a:hover{color:var(--white)}
-.ft-col .ft-addr{color:rgba(255,255,255,.5);font-size:.84rem;line-height:1.8}
-.ft-bot{border-top:1px solid rgba(255,255,255,.1);padding-top:1.4rem;text-align:center}
-.ft-bot p{font-size:.75rem;color:rgba(255,255,255,.3)}
-@media(min-width:600px){.ft-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:900px){.ft-grid{grid-template-columns:2fr 1fr 1fr 1fr}}
+/* ─── DIAGONAL DIVIDER ─── */
+.diagonal-down{
+  height:80px;
+  background:var(--midnight-2);
+  clip-path:polygon(0 0,100% 0,100% 100%,0 30%);
+  margin-top:-2px;
+}
+.diagonal-up{
+  height:80px;
+  background:var(--midnight-2);
+  clip-path:polygon(0 100%,100% 30%,100% 100%);
+  margin-bottom:-2px;
+}
+.diagonal-dark{
+  height:80px;
+  background:var(--midnight);
+  clip-path:polygon(0 0,100% 0,100% 30%,0 100%);
+  margin-top:-2px;
+}
 
-/* REVEAL */
-.rev{opacity:0;transform:translateY(26px);transition:opacity .6s ease-out,transform .6s ease-out}
-.rev.in{opacity:1;transform:none}
-.rev.d1{transition-delay:.1s}
-.rev.d2{transition-delay:.2s}
-.rev.d3{transition-delay:.3s}
-.rev.d4{transition-delay:.4s}
+/* ─── WHY US — alternating image-text rows ─── */
+.why{background:var(--midnight-2)}
+.why__rows{margin-top:3.5rem;display:flex;flex-direction:column;gap:4rem}
+.why__row{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:2rem;
+  align-items:center;
+}
+@media(min-width:768px){
+  .why__row{grid-template-columns:1fr 1fr;gap:4rem}
+  .why__row--reverse .why__img-wrap{order:2}
+  .why__row--reverse .why__text{order:1}
+}
+.why__img-wrap{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+}
+.why__img{
+  width:100%;
+  aspect-ratio:16/10;
+  object-fit:cover;
+  display:block;
+  filter:saturate(1) brightness(1);
+  transition:filter .5s;
+}
+.why__img-wrap:hover .why__img{filter:saturate(1.1) brightness(1.03)}
+.why__img-wrap::after{
+  content:'';position:absolute;inset:0;
+  box-shadow:inset 0 0 60px rgba(27,166,196,0.12);
+  border-radius:4px;pointer-events:none;
+}
+.why__num{
+  font-family:var(--serif);font-style:italic;
+  font-size:4rem;
+  color:rgba(27,166,196,0.12);
+  line-height:1;
+  margin-bottom:.5rem;
+  letter-spacing:0;
+}
+.why__title{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.6rem;line-height:1.3;
+  margin-bottom:.75rem;letter-spacing:0;
+}
+.why__desc{
+  color:var(--muted);font-size:.9rem;line-height:1.9;font-weight:300;
+}
+
+/* ─── STATS BAR ─── */
+.stats{
+  background:var(--midnight-3);
+  padding:3rem 1.5rem;
+  border-top:1px solid rgba(27,166,196,0.08);
+  border-bottom:1px solid rgba(27,166,196,0.08);
+}
+.stats__inner{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:2rem;
+  max-width:900px;margin:0 auto;
+  text-align:center;
+}
+@media(min-width:600px){
+  .stats__inner{grid-template-columns:repeat(4,1fr)}
+}
+.stat__num{
+  font-family:var(--serif);font-style:italic;
+  font-size:2.5rem;
+  color:var(--cerulean);letter-spacing:0;line-height:1;
+  margin-bottom:.35rem;
+}
+.stat__label{font-size:.75rem;color:var(--muted);line-height:1.6}
+
+/* ─── HOW IT WORKS — numbered steps timeline ─── */
+.how{background:var(--midnight)}
+.how__steps{
+  position:relative;
+  margin-top:3rem;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+.how__step{
+  display:grid;
+  grid-template-columns:3rem 1fr;
+  gap:1.5rem;
+  padding-bottom:2.5rem;
+  position:relative;
+}
+.how__step:last-child{padding-bottom:0}
+.how__step-line{
+  display:flex;flex-direction:column;align-items:center;
+}
+.how__step-dot{
+  width:2.5rem;height:2.5rem;
+  border-radius:50%;
+  background:var(--midnight-3);
+  border:1px solid var(--cerulean);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  color:var(--cerulean);font-size:.8rem;font-weight:600;
+  box-shadow:0 0 16px rgba(27,166,196,0.25);
+}
+.how__step-connector{
+  width:1px;flex:1;
+  background:linear-gradient(to bottom,rgba(27,166,196,0.3),transparent);
+  margin-top:.5rem;
+}
+.how__step:last-child .how__step-connector{display:none}
+.how__step-content{padding-top:.25rem}
+.how__step-title{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.2rem;line-height:1.4;
+  margin-bottom:.4rem;letter-spacing:0;
+}
+.how__step-desc{color:var(--muted);font-size:.87rem;line-height:1.9}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials{background:var(--midnight-2)}
+.testimonials__track{
+  display:flex;gap:1.5rem;
+  overflow-x:auto;
+  padding:1rem 0 1.5rem;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.testimonials__track::-webkit-scrollbar{display:none}
+.testi-card{
+  flex:0 0 min(85vw,340px);
+  scroll-snap-align:start;
+  background:var(--midnight-3);
+  border:1px solid rgba(27,166,196,0.1);
+  border-radius:4px;
+  padding:1.75rem;
+  transition:border-color .3s;
+}
+.testi-card:hover{border-color:rgba(27,166,196,0.3)}
+.testi-card__quote{
+  color:var(--cerulean);font-size:2rem;line-height:1;
+  margin-bottom:.75rem;font-family:var(--serif);font-style:italic;
+}
+.testi-card__text{
+  font-size:.87rem;line-height:1.9;
+  color:var(--muted);margin-bottom:1.25rem;
+}
+.testi-card__author{
+  display:flex;align-items:center;gap:.75rem;
+}
+.testi-card__avatar{
+  width:2.5rem;height:2.5rem;border-radius:50%;
+  background:var(--cerulean-dim);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cerulean);flex-shrink:0;
+}
+.testi-card__name{font-size:.82rem;font-weight:500;margin-bottom:.1rem}
+.testi-card__trip{font-size:.72rem;color:var(--muted)}
+.testi-stars{
+  display:flex;gap:2px;margin-bottom:.75rem;
+  color:var(--gold);
+}
+
+/* ─── CONTACT / CTA SECTION ─── */
+.contact{
+  background:var(--midnight-3);
+  position:relative;overflow:hidden;
+}
+.contact::before{
+  content:'';position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(27,166,196,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact__inner{
+  position:relative;z-index:1;
+  max-width:640px;margin:0 auto;
+  text-align:center;
+}
+.contact__heading{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(2rem,6vw,3rem);
+  line-height:1.2;margin-bottom:1rem;letter-spacing:0;
+}
+.contact__sub{
+  color:var(--muted);font-size:.9rem;line-height:1.9;
+  margin-bottom:2rem;
+}
+.contact__form{
+  display:flex;flex-direction:column;gap:1rem;
+  text-align:left;
+}
+.form-row{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:600px){.form-row{grid-template-columns:1fr 1fr}}
+.form-field{display:flex;flex-direction:column;gap:.4rem}
+.form-label{font-size:.75rem;color:var(--muted);letter-spacing:.05em}
+.form-input,.form-select,.form-textarea{
+  background:rgba(29,55,68,0.05);
+  border:1px solid rgba(29,55,68,0.12);
+  border-radius:4px;
+  color:var(--white);
+  font-family:var(--body-font);
+  font-size:.88rem;
+  padding:.75rem 1rem;
+  outline:none;
+  transition:border-color .25s,box-shadow .25s;
+  min-height:44px;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--cerulean);
+  box-shadow:0 0 0 3px rgba(27,166,196,0.12);
+}
+.form-textarea{min-height:120px;resize:vertical}
+.form-select option{background:var(--midnight-3);color:var(--white)}
+.contact__submit{
+  background:var(--gold);color:#ffffff;
+  border:none;border-radius:4px;
+  padding:1rem 2rem;
+  font-size:.92rem;font-weight:600;
+  cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  min-height:48px;
+  transition:transform .2s,box-shadow .2s;
+  width:100%;
+}
+.contact__submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(247,148,29,.4)}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--midnight);
+  padding:3rem 1.5rem 2rem;
+  border-top:1px solid rgba(27,166,196,0.08);
+}
+.footer__inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr;gap:2.5rem;
+}
+@media(min-width:768px){
+  .footer__inner{grid-template-columns:2fr 1fr 1fr 1fr}
+}
+.footer__logo{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.6rem;color:var(--white);
+  margin-bottom:.75rem;
+  display:flex;align-items:center;gap:.4rem;
+}
+.footer__logo-arc{
+  background:linear-gradient(135deg,#ff6b6b,#f5c842,#00aaff,#7b61ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.footer__tagline{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:260px}
+.footer__social{display:flex;gap:.75rem;margin-top:1rem}
+.footer__social a{
+  width:2rem;height:2rem;
+  border-radius:50%;
+  border:1px solid rgba(29,55,68,0.15);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);
+  text-decoration:none;
+  transition:border-color .25s,color .25s;
+}
+.footer__social a:hover{border-color:var(--cerulean);color:var(--cerulean)}
+.footer__col-title{
+  font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cerulean);margin-bottom:1rem;
+}
+.footer__links{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer__links a{
+  text-decoration:none;color:var(--muted);font-size:.83rem;
+  transition:color .2s;
+}
+.footer__links a:hover{color:var(--white)}
+.footer__contact-items{display:flex;flex-direction:column;gap:.8rem}
+.footer__contact-item{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.82rem;color:var(--muted);line-height:1.6;
+}
+.footer__contact-item i{color:var(--cerulean);margin-top:.15rem;flex-shrink:0}
+.footer__bottom{
+  margin-top:2.5rem;padding-top:1.5rem;
+  border-top:1px solid rgba(29,55,68,0.07);
+  display:flex;flex-wrap:wrap;gap:.75rem;
+  justify-content:space-between;align-items:center;
+  font-size:.75rem;color:var(--muted);
+}
+
+/* ─── CERULEAN GLOW LINES (decorative) ─── */
+.glow-line{
+  width:100%;height:1px;
+  background:linear-gradient(to right,transparent,var(--cerulean),transparent);
+  opacity:.25;
+}
+
+/* ─── FAQ ─── */
+.faq-sec{background:var(--midnight)}
+.faq{max-width:760px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem}
+.qa{background:var(--midnight-3);border:1px solid rgba(27,166,196,0.12);border-radius:4px;overflow:hidden;transition:border-color .3s}
+.qa:hover{border-color:rgba(27,166,196,0.32)}
+.qa .q{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.4rem;cursor:pointer;
+  font-family:var(--serif);font-style:italic;font-size:1.18rem;line-height:1.4;color:var(--white)}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.qa .ans p{padding:0 1.4rem 1.2rem;color:var(--muted);font-size:.9rem;line-height:1.9;font-weight:300;margin:0}
+.qa.open .ans{max-height:320px}
+.qa .pm{color:var(--cerulean);font-size:1.7rem;line-height:1;flex-shrink:0;transition:transform .3s}
+.qa.open .pm{transform:rotate(45deg)}
+
+/* ─── FLOATING BUTTONS ─── */
+.fab{position:fixed;right:1.25rem;bottom:1.25rem;z-index:1100;display:flex;flex-direction:column;gap:.75rem}
+.fab a,.fab button{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:transform .25s,opacity .25s}
+.fab a:hover,.fab button:hover{transform:translateY(-3px) scale(1.06)}
+.fab .line{background:#06c755}
+.fab .top{background:var(--cerulean);opacity:0;pointer-events:none}
+.fab .top.show{opacity:1;pointer-events:auto}
+.fab i{width:20px;height:20px}
+
+/* Thai: kill letter-spacing on any element that can show Thai */
+html[lang="th"] [data-lang-th],
+html[lang="th"] .hero__tag,
+html[lang="th"] .section__label span,
+html[lang="th"] .tour-card__dest,
+html[lang="th"] .footer__col-title,
+html[lang="th"] .form-label{letter-spacing:0!important}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <a href="#" class="nav-logo">
-    <span class="logo-arc"></span>
+<!-- NAVBAR -->
+<nav class="nav" id="navbar">
+  <a href="#" class="nav__logo">
+    <span class="nav__logo-arc">&#9651;</span>
     Rainbow Travel
   </a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#packages" data-lang-th="แพ็คเกจทัวร์" data-lang-en="Packages">แพ็คเกจทัวร์</a></li>
-      <li><a href="#dest" data-lang-th="จุดหมายปลายทาง" data-lang-en="Destinations">จุดหมายปลายทาง</a></li>
-      <li><a href="#deals" data-lang-th="โปรโมชั่น" data-lang-en="Deals">โปรโมชั่น</a></li>
-      <li><a href="#contact" data-lang-th="ติดต่อเรา" data-lang-en="Contact">ติดต่อเรา</a></li>
-      <li><a href="#contact" class="nav-cta-link" data-lang-th="จองเลย" data-lang-en="Book Now">จองเลย</a></li>
-    </ul>
-    <button class="lang-sw" aria-label="Switch language">
+  <ul class="nav__links" id="navLinks">
+    <li><a href="#tours" data-lang-th="แพ็คเกจทัวร์" data-lang-en="Packages">แพ็คเกจทัวร์</a></li>
+    <li><a href="#why" data-lang-th="ทำไมเลือกเรา" data-lang-en="Why Us">ทำไมเลือกเรา</a></li>
+    <li><a href="#how" data-lang-th="วิธีจอง" data-lang-en="How to Book">วิธีจอง</a></li>
+    <li><a href="#testimonials" data-lang-th="รีวิว" data-lang-en="Reviews">รีวิว</a></li>
+    <li><a href="#contact" data-lang-th="ติดต่อเรา" data-lang-en="Contact">ติดต่อเรา</a></li>
+  </ul>
+  <div class="nav__right">
+    <div class="lang-sw" aria-label="Toggle language">
       <i data-lucide="globe" width="14" height="14"></i>
       <span class="lang-sw__label">TH</span>
-    </button>
-    <button class="hamburger" id="ham" aria-label="Menu">
+    </div>
+    <a href="#contact" class="nav__cta" data-lang-th="จองทัวร์" data-lang-en="Book Now">จองทัวร์</a>
+    <div class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
-    </button>
+    </div>
   </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mob-overlay" id="mOv"></div>
-<div class="mob-menu" id="mMn">
-  <a href="#packages" data-lang-th="แพ็คเกจทัวร์" data-lang-en="Packages">แพ็คเกจทัวร์</a>
-  <a href="#dest" data-lang-th="จุดหมายปลายทาง" data-lang-en="Destinations">จุดหมายปลายทาง</a>
-  <a href="#deals" data-lang-th="โปรโมชั่น" data-lang-en="Deals">โปรโมชั่น</a>
-  <a href="#how" data-lang-th="วิธีจอง" data-lang-en="How to Book">วิธีจอง</a>
-  <a href="#contact" data-lang-th="ติดต่อเรา" data-lang-en="Contact Us">ติดต่อเรา</a>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#tours" class="mobile-link" data-lang-th="แพ็คเกจทัวร์" data-lang-en="Packages">แพ็คเกจทัวร์</a>
+  <a href="#why" class="mobile-link" data-lang-th="ทำไมเลือกเรา" data-lang-en="Why Us">ทำไมเลือกเรา</a>
+  <a href="#how" class="mobile-link" data-lang-th="วิธีจอง" data-lang-en="How to Book">วิธีจอง</a>
+  <a href="#testimonials" class="mobile-link" data-lang-th="รีวิว" data-lang-en="Reviews">รีวิว</a>
+  <a href="#contact" class="mobile-link" data-lang-th="ติดต่อเรา" data-lang-en="Contact">ติดต่อเรา</a>
 </div>
 
+<main>
+
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-wm">PARADISE</div>
-  <div class="hero-content sw">
-    <span class="hero-tag" data-lang-th="เที่ยวทั่วโลก · บริการครบวงจร" data-lang-en="WORLDWIDE TOURS · FULL SERVICE">เที่ยวทั่วโลก · บริการครบวงจร</span>
-    <span class="hero-eyebrow" data-lang-th="ประสบการณ์การเดินทางที่คุณจะไม่ลืม" data-lang-en="Travel experiences you'll never forget">ประสบการณ์การเดินทางที่คุณจะไม่ลืม</span>
-    <h1>
-      <span data-lang-th="โลกรอคุณ" data-lang-en="The World">โลกรอคุณ</span>
-      <em data-lang-th="อยู่" data-lang-en="Awaits">อยู่</em>
-    </h1>
-    <p class="hero-desc" data-lang-th="จัดทัวร์ครบวงจร ทั้งยุโรป เอเชีย มัลดีฟส์ และอีกมากมาย พร้อมไกด์ภาษาไทยมืออาชีพดูแลตลอดการเดินทาง" data-lang-en="Complete tour packages — Europe, Asia, Maldives and beyond. Expert Thai-speaking guides who take care of everything.">จัดทัวร์ครบวงจร ทั้งยุโรป เอเชีย มัลดีฟส์ และอีกมากมาย พร้อมไกด์ภาษาไทยมืออาชีพดูแลตลอดการเดินทาง</p>
-    <div class="hero-actions">
-      <a href="#packages" class="btn-y">
-        <i data-lucide="map" width="18" height="18"></i>
-        <span data-lang-th="ดูแพ็คเกจทัวร์" data-lang-en="View Packages">ดูแพ็คเกจทัวร์</span>
+<section class="hero" id="hero">
+  <div class="hero__bg" id="heroBg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__accent"></div>
+  <div class="hero__content">
+    <p class="hero__tag reveal" data-lang-th="ค้นพบโลกกับเรา" data-lang-en="Discover the World With Us">ค้นพบโลกกับเรา</p>
+    <h1 class="hero__heading reveal" data-lang-th="เดินทาง<br>เพื่อ<em>ค้นหา</em><br>ตัวเอง" data-lang-en="Travel<br>to <em>Find</em><br>Yourself">เดินทาง<br>เพื่อ<em>ค้นหา</em><br>ตัวเอง</h1>
+    <p class="hero__sub reveal" data-lang-th="ทัวร์คุณภาพพรีเมียม ออกแบบมาเพื่อนักเดินทางที่รักความงามของโลก ครบทุกจุดหมาย ราคาที่คุ้มค่า" data-lang-en="Premium tours designed for those who seek beauty in every corner of the world. Every destination, every experience — curated just for you.">ทัวร์คุณภาพพรีเมียม ออกแบบมาเพื่อนักเดินทางที่รักความงามของโลก ครบทุกจุดหมาย ราคาที่คุ้มค่า</p>
+    <div class="hero__actions reveal">
+      <a href="#tours" class="btn-primary">
+        <i data-lucide="compass" width="16" height="16"></i>
+        <span data-lang-th="ดูแพ็คเกจทัวร์" data-lang-en="Explore Packages">ดูแพ็คเกจทัวร์</span>
       </a>
-      <a href="#contact" class="btn-ol">
-        <i data-lucide="phone" width="18" height="18"></i>
+      <a href="#contact" class="btn-ghost">
+        <i data-lucide="phone" width="16" height="16"></i>
         <span data-lang-th="ปรึกษาฟรี" data-lang-en="Free Consultation">ปรึกษาฟรี</span>
       </a>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="hero-stats-inner">
-      <div>
-        <span class="stat-n">15,000+</span>
-        <span class="stat-l" data-lang-th="นักท่องเที่ยวพึงพอใจ" data-lang-en="Happy Travelers">นักท่องเที่ยวพึงพอใจ</span>
-      </div>
-      <div>
-        <span class="stat-n">80+</span>
-        <span class="stat-l" data-lang-th="จุดหมายปลายทาง" data-lang-en="Destinations">จุดหมายปลายทาง</span>
-      </div>
-      <div>
-        <span class="stat-n">12+</span>
-        <span class="stat-l" data-lang-th="ปีประสบการณ์" data-lang-en="Years Experience">ปีประสบการณ์</span>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="tk-track">
-    <span class="tk-item"><span class="tk-dot"></span>ญี่ปุ่น — Japan</span>
-    <span class="tk-item"><span class="tk-dot"></span>ยุโรป — Europe</span>
-    <span class="tk-item"><span class="tk-dot"></span>มัลดีฟส์ — Maldives</span>
-    <span class="tk-item"><span class="tk-dot"></span>สวิตเซอร์แลนด์ — Switzerland</span>
-    <span class="tk-item"><span class="tk-dot"></span>อิตาลี — Italy</span>
-    <span class="tk-item"><span class="tk-dot"></span>ฝรั่งเศส — France</span>
-    <span class="tk-item"><span class="tk-dot"></span>ตุรกี — Türkiye</span>
-    <span class="tk-item"><span class="tk-dot"></span>เกาหลี — Korea</span>
-    <span class="tk-item"><span class="tk-dot"></span>กรีซ — Greece</span>
-    <span class="tk-item"><span class="tk-dot"></span>บาหลี — Bali</span>
-    <span class="tk-item"><span class="tk-dot"></span>ญี่ปุ่น — Japan</span>
-    <span class="tk-item"><span class="tk-dot"></span>ยุโรป — Europe</span>
-    <span class="tk-item"><span class="tk-dot"></span>มัลดีฟส์ — Maldives</span>
-    <span class="tk-item"><span class="tk-dot"></span>สวิตเซอร์แลนด์ — Switzerland</span>
-    <span class="tk-item"><span class="tk-dot"></span>อิตาลี — Italy</span>
-    <span class="tk-item"><span class="tk-dot"></span>ฝรั่งเศส — France</span>
-    <span class="tk-item"><span class="tk-dot"></span>ตุรกี — Türkiye</span>
-    <span class="tk-item"><span class="tk-dot"></span>เกาหลี — Korea</span>
-    <span class="tk-item"><span class="tk-dot"></span>กรีซ — Greece</span>
-    <span class="tk-item"><span class="tk-dot"></span>บาหลี — Bali</span>
+<!-- STATS -->
+<div class="stats">
+  <div class="stats__inner">
+    <div class="reveal">
+      <div class="stat__num"><span class="cnt" data-count="12">0</span>K+</div>
+      <div class="stat__label" data-lang-th="นักท่องเที่ยวที่ไว้ใจเรา" data-lang-en="Happy Travelers">นักท่องเที่ยวที่ไว้ใจเรา</div>
+    </div>
+    <div class="reveal">
+      <div class="stat__num"><span class="cnt" data-count="85">0</span>+</div>
+      <div class="stat__label" data-lang-th="จุดหมายปลายทางทั่วโลก" data-lang-en="Global Destinations">จุดหมายปลายทางทั่วโลก</div>
+    </div>
+    <div class="reveal">
+      <div class="stat__num"><span class="cnt" data-count="18">0</span></div>
+      <div class="stat__label" data-lang-th="ปีแห่งประสบการณ์" data-lang-en="Years of Experience">ปีแห่งประสบการณ์</div>
+    </div>
+    <div class="reveal">
+      <div class="stat__num"><span class="cnt" data-count="4.9" data-dec="1">0</span></div>
+      <div class="stat__label" data-lang-th="คะแนนความพึงพอใจ" data-lang-en="Average Rating">คะแนนความพึงพอใจ</div>
+    </div>
   </div>
 </div>
 
-<!-- PACKAGES -->
-<section class="pkg-sec" id="packages">
-  <div class="sw">
-    <div class="ed-head rev">
-      <span class="issue" data-lang-th="แพ็คเกจแนะนำ · ปี 2025" data-lang-en="FEATURED PACKAGES · 2025">แพ็คเกจแนะนำ · ปี 2025</span>
-      <h2 data-lang-th="ทัวร์ยอดนิยม" data-lang-en="Most Popular Tours">ทัวร์ยอดนิยม</h2>
-      <span class="hand" data-lang-th="เลือกเส้นทางที่ใช่ สำหรับการเดินทางครั้งใหม่ของคุณ" data-lang-en="Find the journey that calls your name">เลือกเส้นทางที่ใช่ สำหรับการเดินทางครั้งใหม่ของคุณ</span>
+<div class="diagonal-down"></div>
+
+<!-- TOUR PACKAGES -->
+<section class="section tours" id="tours">
+  <div class="section__label">
+    <span data-lang-th="แพ็คเกจยอดนิยม" data-lang-en="Popular Packages">แพ็คเกจยอดนิยม</span>
+  </div>
+  <h2 class="section__title reveal" data-lang-th="เลือกจุดหมายฝันของคุณ" data-lang-en="Choose Your Dream Destination">เลือกจุดหมายฝันของคุณ</h2>
+  <p class="section__body reveal" data-lang-th="แพ็คเกจทัวร์ที่คัดสรรมาอย่างพิถีพิถัน ครอบคลุมทั้งเอเชีย ยุโรป และมหาสมุทร" data-lang-en="Meticulously curated tour packages spanning Asia, Europe, and the world's most breathtaking oceans.">แพ็คเกจทัวร์ที่คัดสรรมาอย่างพิถีพิถัน ครอบคลุมทั้งเอเชีย ยุโรป และมหาสมุทร</p>
+
+  <div class="tours__grid">
+    <!-- Featured: Maldives -->
+    <div class="tour-card tour-card--featured reveal">
+      <div class="tour-card__img-wrap">
+        <img loading="lazy" class="tour-card__img" src="https://images.unsplash.com/photo-1643856555886-76dca68e5322?w=900&h=380&fit=crop" alt="Maldives beach resort">
+        <div class="tour-card__cerulean"></div>
+      </div>
+      <div class="tour-card__body">
+        <div class="tour-card__dest" data-lang-th="มัลดีฟส์" data-lang-en="Maldives">มัลดีฟส์</div>
+        <div class="tour-card__name" data-lang-th="สวรรค์ใต้ทะเลมัลดีฟส์" data-lang-en="Maldives Paradise Escape">สวรรค์ใต้ทะเลมัลดีฟส์</div>
+        <div class="tour-card__meta">
+          <span><i data-lucide="clock" width="13" height="13"></i> <span data-lang-th="7 วัน 5 คืน" data-lang-en="7 Days 5 Nights">7 วัน 5 คืน</span></span>
+          <span><i data-lucide="users" width="13" height="13"></i> <span data-lang-th="สูงสุด 12 คน" data-lang-en="Max 12 Pax">สูงสุด 12 คน</span></span>
+          <span><i data-lucide="star" width="13" height="13"></i> 4.9</span>
+        </div>
+        <div class="tour-card__price">
+          <span class="tour-card__price-label" data-lang-th="ราคาเริ่มต้น" data-lang-en="From">ราคาเริ่มต้น</span>
+          <span class="tour-card__price-num">฿89,900</span>
+          <span class="tour-card__price-unit" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span>
+        </div>
+      </div>
     </div>
-    <div class="pkg-grid">
 
-      <!-- FEATURED CARD -->
-      <div class="pkg-card feat rev">
-        <img src="https://images.unsplash.com/photo-1688949078626-a358f500e063?w=900&h=560&fit=crop" alt="Maldives overwater resort aerial view">
-        <div class="pkg-body">
-          <div>
-            <span class="pkg-wm">MALDIVES</span>
-            <span class="pkg-tag tag-hot" data-lang-th="ยอดนิยม" data-lang-en="HOT">ยอดนิยม</span>
-            <h3 data-lang-th="มัลดีฟส์ — สวรรค์กลางมหาสมุทร" data-lang-en="Maldives — Ocean Paradise">มัลดีฟส์ — สวรรค์กลางมหาสมุทร</h3>
-            <div class="pkg-meta">
-              <span class="pkg-mi"><i data-lucide="clock" width="14" height="14"></i> <span data-lang-th="5 วัน 4 คืน" data-lang-en="5D 4N">5 วัน 4 คืน</span></span>
-              <span class="pkg-mi"><i data-lucide="users" width="14" height="14"></i> <span data-lang-th="2–16 คน" data-lang-en="2–16 pax">2–16 คน</span></span>
-              <span class="pkg-mi"><i data-lucide="utensils" width="14" height="14"></i> <span data-lang-th="รวมอาหาร" data-lang-en="Meals Incl.">รวมอาหาร</span></span>
-              <span class="pkg-mi"><i data-lucide="plane" width="14" height="14"></i> <span data-lang-th="รวมตั๋วเครื่องบิน" data-lang-en="Flights Incl.">รวมตั๋วเครื่องบิน</span></span>
-            </div>
-            <p style="font-size:.85rem;color:rgba(255,255,255,.58);line-height:1.9;margin-top:.5rem" data-lang-th="พักบนวิลล่าเหนือน้ำ ชมปะการังใส ดำน้ำดูฉลามวาฬ ผ่อนคลายในสวรรค์ที่คุณฝันถึง" data-lang-en="Overwater villas, crystal lagoons, whale-shark snorkeling — your tropical dream made real.">พักบนวิลล่าเหนือน้ำ ชมปะการังใส ดำน้ำดูฉลามวาฬ ผ่อนคลายในสวรรค์ที่คุณฝันถึง</p>
-          </div>
-          <div class="pkg-pr-row">
-            <div>
-              <span class="pkg-pr">฿89,900</span>
-              <span class="pkg-pr-u" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span>
-            </div>
-            <button class="pkg-btn">
-              <i data-lucide="arrow-right" width="15" height="15"></i>
-              <span data-lang-th="จองเลย" data-lang-en="Book Now">จองเลย</span>
-            </button>
-          </div>
+    <!-- Japan -->
+    <div class="tour-card reveal">
+      <div class="tour-card__img-wrap">
+        <img loading="lazy" class="tour-card__img" src="https://images.unsplash.com/photo-1598957232485-fab51e0ed7e8?w=600&h=260&fit=crop" alt="Japan cherry blossom path">
+        <div class="tour-card__cerulean"></div>
+      </div>
+      <div class="tour-card__body">
+        <div class="tour-card__dest" data-lang-th="ญี่ปุ่น" data-lang-en="Japan">ญี่ปุ่น</div>
+        <div class="tour-card__name" data-lang-th="ซากุระบานที่โตเกียว" data-lang-en="Tokyo Sakura Season">ซากุระบานที่โตเกียว</div>
+        <div class="tour-card__meta">
+          <span><i data-lucide="clock" width="13" height="13"></i> <span data-lang-th="6 วัน 4 คืน" data-lang-en="6 Days 4 Nights">6 วัน 4 คืน</span></span>
+          <span><i data-lucide="star" width="13" height="13"></i> 4.8</span>
+        </div>
+        <div class="tour-card__price">
+          <span class="tour-card__price-label" data-lang-th="ราคาเริ่มต้น" data-lang-en="From">ราคาเริ่มต้น</span>
+          <span class="tour-card__price-num">฿55,500</span>
+          <span class="tour-card__price-unit" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span>
         </div>
       </div>
-
-      <!-- CARD 2 -->
-      <div class="pkg-card rev d1">
-        <img src="https://images.unsplash.com/photo-1711490554042-c53dd762bd3f?w=700&h=420&fit=crop" alt="Kyoto cherry blossom pagoda">
-        <div class="pkg-body">
-          <span class="pkg-wm">JAPAN</span>
-          <span class="pkg-tag tag-new" data-lang-th="ใหม่" data-lang-en="NEW">ใหม่</span>
-          <h3 data-lang-th="ญี่ปุ่น เกียวโต–โอซาก้า" data-lang-en="Japan: Kyoto–Osaka">ญี่ปุ่น เกียวโต–โอซาก้า</h3>
-          <div class="pkg-meta">
-            <span class="pkg-mi"><i data-lucide="clock" width="14" height="14"></i> <span data-lang-th="7 วัน 6 คืน" data-lang-en="7D 6N">7 วัน 6 คืน</span></span>
-            <span class="pkg-mi"><i data-lucide="users" width="14" height="14"></i> <span data-lang-th="10–20 คน" data-lang-en="10–20 pax">10–20 คน</span></span>
-          </div>
-          <div class="pkg-pr-row">
-            <div><span class="pkg-pr">฿55,900</span><span class="pkg-pr-u" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span></div>
-            <button class="pkg-btn"><i data-lucide="arrow-right" width="15" height="15"></i><span data-lang-th="จอง" data-lang-en="Book">จอง</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="pkg-card rev d2">
-        <img src="https://images.unsplash.com/photo-1620643856853-4c5feed2190e?w=700&h=420&fit=crop" alt="Eiffel Tower Paris blue sky">
-        <div class="pkg-body">
-          <span class="pkg-wm">PARIS</span>
-          <span class="pkg-tag tag-sale" data-lang-th="ลดราคา" data-lang-en="SALE">ลดราคา</span>
-          <h3 data-lang-th="ยุโรปตะวันตก 5 ประเทศ" data-lang-en="Western Europe 5 Countries">ยุโรปตะวันตก 5 ประเทศ</h3>
-          <div class="pkg-meta">
-            <span class="pkg-mi"><i data-lucide="clock" width="14" height="14"></i> <span data-lang-th="10 วัน 9 คืน" data-lang-en="10D 9N">10 วัน 9 คืน</span></span>
-            <span class="pkg-mi"><i data-lucide="users" width="14" height="14"></i> <span data-lang-th="15–30 คน" data-lang-en="15–30 pax">15–30 คน</span></span>
-          </div>
-          <div class="pkg-pr-row">
-            <div><span class="pkg-pr">฿72,500</span><span class="pkg-pr-u" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span></div>
-            <button class="pkg-btn"><i data-lucide="arrow-right" width="15" height="15"></i><span data-lang-th="จอง" data-lang-en="Book">จอง</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- CARD 4 -->
-      <div class="pkg-card rev d3">
-        <img src="https://images.unsplash.com/photo-1604503245604-930a6f3513ef?w=700&h=420&fit=crop" alt="Santorini Greece white blue buildings">
-        <div class="pkg-body">
-          <span class="pkg-wm">GREECE</span>
-          <span class="pkg-tag tag-hot" data-lang-th="ยอดนิยม" data-lang-en="HOT">ยอดนิยม</span>
-          <h3 data-lang-th="กรีซ ซานโตรีนี–เอเธนส์" data-lang-en="Greece: Santorini–Athens">กรีซ ซานโตรีนี–เอเธนส์</h3>
-          <div class="pkg-meta">
-            <span class="pkg-mi"><i data-lucide="clock" width="14" height="14"></i> <span data-lang-th="8 วัน 7 คืน" data-lang-en="8D 7N">8 วัน 7 คืน</span></span>
-            <span class="pkg-mi"><i data-lucide="users" width="14" height="14"></i> <span data-lang-th="10–25 คน" data-lang-en="10–25 pax">10–25 คน</span></span>
-          </div>
-          <div class="pkg-pr-row">
-            <div><span class="pkg-pr">฿65,000</span><span class="pkg-pr-u" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span></div>
-            <button class="pkg-btn"><i data-lucide="arrow-right" width="15" height="15"></i><span data-lang-th="จอง" data-lang-en="Book">จอง</span></button>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- Santorini -->
+    <div class="tour-card reveal">
+      <div class="tour-card__img-wrap">
+        <img loading="lazy" class="tour-card__img" src="https://images.unsplash.com/photo-1612277288801-0d783ca59c42?w=600&h=260&fit=crop" alt="Santorini white buildings">
+        <div class="tour-card__cerulean"></div>
+      </div>
+      <div class="tour-card__body">
+        <div class="tour-card__dest" data-lang-th="กรีซ" data-lang-en="Greece">กรีซ</div>
+        <div class="tour-card__name" data-lang-th="ซานโตรีนีในฝัน" data-lang-en="Santorini Dream Escape">ซานโตรีนีในฝัน</div>
+        <div class="tour-card__meta">
+          <span><i data-lucide="clock" width="13" height="13"></i> <span data-lang-th="8 วัน 6 คืน" data-lang-en="8 Days 6 Nights">8 วัน 6 คืน</span></span>
+          <span><i data-lucide="star" width="13" height="13"></i> 4.9</span>
+        </div>
+        <div class="tour-card__price">
+          <span class="tour-card__price-label" data-lang-th="ราคาเริ่มต้น" data-lang-en="From">ราคาเริ่มต้น</span>
+          <span class="tour-card__price-num">฿72,000</span>
+          <span class="tour-card__price-unit" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paris -->
+    <div class="tour-card reveal">
+      <div class="tour-card__img-wrap">
+        <img loading="lazy" class="tour-card__img" src="https://images.unsplash.com/photo-1541338906008-f2d4ad1b2231?w=600&h=260&fit=crop" alt="Paris night cityscape">
+        <div class="tour-card__cerulean"></div>
+      </div>
+      <div class="tour-card__body">
+        <div class="tour-card__dest" data-lang-th="ฝรั่งเศส" data-lang-en="France">ฝรั่งเศส</div>
+        <div class="tour-card__name" data-lang-th="ปารีสยามราตรี" data-lang-en="Paris by Night">ปารีสยามราตรี</div>
+        <div class="tour-card__meta">
+          <span><i data-lucide="clock" width="13" height="13"></i> <span data-lang-th="7 วัน 5 คืน" data-lang-en="7 Days 5 Nights">7 วัน 5 คืน</span></span>
+          <span><i data-lucide="star" width="13" height="13"></i> 4.7</span>
+        </div>
+        <div class="tour-card__price">
+          <span class="tour-card__price-label" data-lang-th="ราคาเริ่มต้น" data-lang-en="From">ราคาเริ่มต้น</span>
+          <span class="tour-card__price-num">฿68,000</span>
+          <span class="tour-card__price-unit" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swiss Alps -->
+    <div class="tour-card reveal">
+      <div class="tour-card__img-wrap">
+        <img loading="lazy" class="tour-card__img" src="https://images.unsplash.com/photo-1604428803896-c1e5151d4128?w=600&h=260&fit=crop" alt="Swiss Alps mountain landscape">
+        <div class="tour-card__cerulean"></div>
+      </div>
+      <div class="tour-card__body">
+        <div class="tour-card__dest" data-lang-th="สวิตเซอร์แลนด์" data-lang-en="Switzerland">สวิตเซอร์แลนด์</div>
+        <div class="tour-card__name" data-lang-th="แอลป์สขาวโพลน" data-lang-en="Swiss Alpine Winter">แอลป์สขาวโพลน</div>
+        <div class="tour-card__meta">
+          <span><i data-lucide="clock" width="13" height="13"></i> <span data-lang-th="9 วัน 7 คืน" data-lang-en="9 Days 7 Nights">9 วัน 7 คืน</span></span>
+          <span><i data-lucide="star" width="13" height="13"></i> 4.8</span>
+        </div>
+        <div class="tour-card__price">
+          <span class="tour-card__price-label" data-lang-th="ราคาเริ่มต้น" data-lang-en="From">ราคาเริ่มต้น</span>
+          <span class="tour-card__price-num">฿95,000</span>
+          <span class="tour-card__price-unit" data-lang-th="/ ท่าน" data-lang-en="/ person">/ ท่าน</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:2.5rem" class="reveal">
+    <a href="#contact" class="btn-ghost">
+      <i data-lucide="grid" width="15" height="15"></i>
+      <span data-lang-th="ดูแพ็คเกจทั้งหมด" data-lang-en="View All Packages">ดูแพ็คเกจทั้งหมด</span>
+    </a>
   </div>
 </section>
 
-<hr class="rb-rule">
+<div class="glow-line"></div>
+<div class="diagonal-down"></div>
 
 <!-- WHY US -->
-<section class="why-sec" id="why">
-  <div class="why-wm">RAINBOW</div>
-  <div class="sw why-inner">
-    <div class="ed-head rev">
-      <span class="issue" data-lang-th="ทำไมต้องเลือกเรา" data-lang-en="WHY CHOOSE US">ทำไมต้องเลือกเรา</span>
-      <h2 data-lang-th="บริการที่คุณวางใจได้" data-lang-en="Service You Can Count On">บริการที่คุณวางใจได้</h2>
-      <span class="hand" data-lang-th="เพราะการเดินทางที่ดี เริ่มจากผู้จัดที่ใส่ใจ" data-lang-en="Because great travel starts with a team that cares">เพราะการเดินทางที่ดี เริ่มจากผู้จัดที่ใส่ใจ</span>
+<section class="section why" id="why">
+  <div class="section__label">
+    <span data-lang-th="ทำไมต้องเลือก Rainbow Travel" data-lang-en="Why Choose Rainbow Travel">ทำไมต้องเลือก Rainbow Travel</span>
+  </div>
+  <h2 class="section__title reveal" data-lang-th="ประสบการณ์ที่คุณจะไม่ลืม" data-lang-en="Experiences You Won't Forget">ประสบการณ์ที่คุณจะไม่ลืม</h2>
+
+  <div class="why__rows">
+    <div class="why__row reveal-left">
+      <div class="why__img-wrap">
+        <img loading="lazy" class="why__img" src="https://images.unsplash.com/photo-1707320138693-758a5b2540f9?w=700&h=440&fit=crop" alt="Airplane window view">
+      </div>
+      <div class="why__text">
+        <div class="why__num">01</div>
+        <div class="why__title" data-lang-th="ดูแลทุกรายละเอียด" data-lang-en="We Handle Every Detail">ดูแลทุกรายละเอียด</div>
+        <div class="why__desc" data-lang-th="ตั้งแต่การจองตั๋วเครื่องบิน โรงแรม วีซ่า และกิจกรรมต่างๆ ทีมงานของเรากดีแลทุกขั้นตอนเพื่อให้คุณเดินทางได้อย่างสบายใจ ไม่ต้องกังวลเรื่องใด" data-lang-en="From flights and hotels to visas and activities — our dedicated team handles every step so you can travel without a single worry. Truly hassle-free.">ตั้งแต่การจองตั๋วเครื่องบิน โรงแรม วีซ่า และกิจกรรมต่างๆ ทีมงานของเราดูแลทุกขั้นตอนเพื่อให้คุณเดินทางได้อย่างสบายใจ ไม่ต้องกังวลเรื่องใด</div>
+      </div>
     </div>
-    <div class="why-grid">
-      <div class="why-card rev d1">
-        <div class="why-icon"><i data-lucide="shield-check" width="22" height="22"></i></div>
-        <h3 data-lang-th="ประกันการเดินทาง" data-lang-en="Travel Insurance">ประกันการเดินทาง</h3>
-        <p data-lang-th="ทุกทัวร์มีประกันอุบัติเหตุ วงเงินสูงสุด 3 ล้านบาท ครอบคลุมตลอดการเดินทาง" data-lang-en="Every tour includes accident insurance up to ฿3M covering you departure to return.">ทุกทัวร์มีประกันอุบัติเหตุ วงเงินสูงสุด 3 ล้านบาท ครอบคลุมตลอดการเดินทาง</p>
+
+    <div class="why__row why__row--reverse reveal-right">
+      <div class="why__img-wrap">
+        <img loading="lazy" class="why__img" src="https://images.unsplash.com/photo-1771595235302-b0bc0549e6fc?w=700&h=440&fit=crop" alt="Sunset airplane view">
       </div>
-      <div class="why-card rev d2">
-        <div class="why-icon"><i data-lucide="users" width="22" height="22"></i></div>
-        <h3 data-lang-th="ไกด์ภาษาไทยมืออาชีพ" data-lang-en="Thai-Speaking Expert Guides">ไกด์ภาษาไทยมืออาชีพ</h3>
-        <p data-lang-th="ไกด์ผู้ชำนาญเส้นทาง ดูแลและอำนวยความสะดวกตลอด 24 ชั่วโมง" data-lang-en="Expert guides who speak Thai, available around the clock for your peace of mind.">ไกด์ผู้ชำนาญเส้นทาง ดูแลและอำนวยความสะดวกตลอด 24 ชั่วโมง</p>
+      <div class="why__text">
+        <div class="why__num">02</div>
+        <div class="why__title" data-lang-th="ไกด์ผู้เชี่ยวชาญประจำ" data-lang-en="Expert Local Guides">ไกด์ผู้เชี่ยวชาญประจำ</div>
+        <div class="why__desc" data-lang-th="ไกด์มืออาชีพที่รู้จักทุกซอกมุมของจุดหมายปลายทาง พร้อมเล่าเรื่องราวและวัฒนธรรมท้องถิ่นที่คุณจะไม่มีทางพบในคู่มือท่องเที่ยวทั่วไป" data-lang-en="Professional guides who know every corner of each destination — sharing stories and local culture you won't find in any guidebook. Insider access guaranteed.">ไกด์มืออาชีพที่รู้จักทุกซอกมุมของจุดหมายปลายทาง พร้อมเล่าเรื่องราวและวัฒนธรรมท้องถิ่นที่คุณจะไม่มีทางพบในคู่มือท่องเที่ยวทั่วไป</div>
       </div>
-      <div class="why-card rev d3">
-        <div class="why-icon"><i data-lucide="building-2" width="22" height="22"></i></div>
-        <h3 data-lang-th="โรงแรมระดับ 4–5 ดาว" data-lang-en="4–5 Star Hotels">โรงแรมระดับ 4–5 ดาว</h3>
-        <p data-lang-th="คัดสรรที่พักคุณภาพ ทำเลดี ใกล้สถานที่ท่องเที่ยวหลัก พร้อมอาหารเช้า" data-lang-en="Prime-location properties with great facilities, always with breakfast included.">คัดสรรที่พักคุณภาพ ทำเลดี ใกล้สถานที่ท่องเที่ยวหลัก พร้อมอาหารเช้า</p>
+    </div>
+
+    <div class="why__row reveal-left">
+      <div class="why__img-wrap">
+        <img loading="lazy" class="why__img" src="https://images.unsplash.com/photo-1728237619954-b7a77bb64670?w=700&h=440&fit=crop" alt="Aerial ocean view">
       </div>
-      <div class="why-card rev d1">
-        <div class="why-icon"><i data-lucide="credit-card" width="22" height="22"></i></div>
-        <h3 data-lang-th="ผ่อนชำระ 0%" data-lang-en="0% Installment Plans">ผ่อนชำระ 0%</h3>
-        <p data-lang-th="ผ่อน 0% นานสูงสุด 10 เดือน รองรับบัตรเครดิตทุกธนาคาร" data-lang-en="0% interest over up to 10 months with any major Thai credit card.">ผ่อน 0% นานสูงสุด 10 เดือน รองรับบัตรเครดิตทุกธนาคาร</p>
-      </div>
-      <div class="why-card rev d2">
-        <div class="why-icon"><i data-lucide="clock" width="22" height="22"></i></div>
-        <h3 data-lang-th="บริการ 24/7" data-lang-en="24/7 Support">บริการ 24/7</h3>
-        <p data-lang-th="ทีมงานพร้อมรับสายตลอด 24 ชั่วโมง ไม่ว่าจะเกิดปัญหาใด เราอยู่เคียงข้างคุณ" data-lang-en="No matter what time zone, our support team is always one call away.">ทีมงานพร้อมรับสายตลอด 24 ชั่วโมง ไม่ว่าจะเกิดปัญหาใด เราอยู่เคียงข้างคุณ</p>
-      </div>
-      <div class="why-card rev d3">
-        <div class="why-icon"><i data-lucide="award" width="22" height="22"></i></div>
-        <h3 data-lang-th="รับรอง TAT" data-lang-en="TAT Certified">รับรอง TAT</h3>
-        <p data-lang-th="ได้รับใบอนุญาตนำเที่ยวจากการท่องเที่ยวแห่งประเทศไทย มั่นใจได้ 100%" data-lang-en="Fully licensed by the Tourism Authority of Thailand. Safe, certified hands.">ได้รับใบอนุญาตนำเที่ยวจากการท่องเที่ยวแห่งประเทศไทย มั่นใจได้ 100%</p>
+      <div class="why__text">
+        <div class="why__num">03</div>
+        <div class="why__title" data-lang-th="ราคาโปร่งใส ไม่มีค่าใช้จ่ายซ่อน" data-lang-en="Transparent Pricing, No Hidden Costs">ราคาโปร่งใส ไม่มีค่าใช้จ่ายซ่อน</div>
+        <div class="why__desc" data-lang-th="ราคาที่คุณเห็นคือราคาที่คุณจ่าย เราเชื่อในความซื่อสัตย์และความโปร่งใส ทุกรายละเอียดของค่าใช้จ่ายถูกระบุอย่างชัดเจนก่อนการจอง" data-lang-en="The price you see is the price you pay. We believe in complete honesty and transparency — every expense is clearly itemized before you book. No surprises, ever.">ราคาที่คุณเห็นคือราคาที่คุณจ่าย เราเชื่อในความซื่อสัตย์และความโปร่งใส ทุกรายละเอียดของค่าใช้จ่ายถูกระบุอย่างชัดเจนก่อนการจอง</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DESTINATIONS -->
-<section class="dest-sec" id="dest">
-  <div class="sw">
-    <div class="ed-head rev">
-      <span class="issue" data-lang-th="สำรวจโลก" data-lang-en="EXPLORE THE WORLD">สำรวจโลก</span>
-      <h2 data-lang-th="จุดหมายปลายทาง" data-lang-en="Destinations">จุดหมายปลายทาง</h2>
-      <span class="hand" data-lang-th="เลื่อนดูทุกจุดหมายที่คุณฝัน" data-lang-en="Swipe through every place you've dreamed of">เลื่อนดูทุกจุดหมายที่คุณฝัน</span>
-    </div>
-  </div>
-  <div class="dest-scr" id="destScr">
-    <div class="dest-track">
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1617869884925-f8f0a51b2374?w=400&h=580&fit=crop" alt="Tokyo street at night">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="เอเชีย" data-lang-en="Asia">เอเชีย</span>
-          <span class="dest-city" data-lang-th="โตเกียว" data-lang-en="Tokyo">โตเกียว</span>
-          <span class="dest-pkgs" data-lang-th="12 แพ็คเกจ" data-lang-en="12 packages">12 แพ็คเกจ</span>
-        </div>
-      </div>
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1606044466411-207a9a49711f?w=400&h=580&fit=crop" alt="Eiffel Tower Paris at night">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="ยุโรป" data-lang-en="Europe">ยุโรป</span>
-          <span class="dest-city" data-lang-th="ปารีส" data-lang-en="Paris">ปารีส</span>
-          <span class="dest-pkgs" data-lang-th="8 แพ็คเกจ" data-lang-en="8 packages">8 แพ็คเกจ</span>
-        </div>
-      </div>
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1688949078626-a358f500e063?w=400&h=580&fit=crop" alt="Maldives resort aerial view">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="มหาสมุทรอินเดีย" data-lang-en="Indian Ocean">มหาสมุทรอินเดีย</span>
-          <span class="dest-city" data-lang-th="มัลดีฟส์" data-lang-en="Maldives">มัลดีฟส์</span>
-          <span class="dest-pkgs" data-lang-th="6 แพ็คเกจ" data-lang-en="6 packages">6 แพ็คเกจ</span>
-        </div>
-      </div>
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1604503245604-930a6f3513ef?w=400&h=580&fit=crop" alt="Santorini Greece white buildings">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="ยุโรป" data-lang-en="Europe">ยุโรป</span>
-          <span class="dest-city" data-lang-th="ซานโตรีนี" data-lang-en="Santorini">ซานโตรีนี</span>
-          <span class="dest-pkgs" data-lang-th="5 แพ็คเกจ" data-lang-en="5 packages">5 แพ็คเกจ</span>
-        </div>
-      </div>
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1542953626-1bc299b75fdd?w=400&h=580&fit=crop" alt="Tropical seashore beach">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="เอเชียตะวันออกเฉียงใต้" data-lang-en="SE Asia">เอเชียตะวันออกเฉียงใต้</span>
-          <span class="dest-city" data-lang-th="บาหลี" data-lang-en="Bali">บาหลี</span>
-          <span class="dest-pkgs" data-lang-th="9 แพ็คเกจ" data-lang-en="9 packages">9 แพ็คเกจ</span>
-        </div>
-      </div>
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1711490554042-c53dd762bd3f?w=400&h=580&fit=crop" alt="Kyoto cherry blossom pagoda">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="เอเชีย" data-lang-en="Asia">เอเชีย</span>
-          <span class="dest-city" data-lang-th="เกียวโต" data-lang-en="Kyoto">เกียวโต</span>
-          <span class="dest-pkgs" data-lang-th="7 แพ็คเกจ" data-lang-en="7 packages">7 แพ็คเกจ</span>
-        </div>
-      </div>
-
-      <div class="dest-card">
-        <img src="https://images.unsplash.com/photo-1741158483757-d5bf054c58b7?w=400&h=580&fit=crop" alt="Tropical island crystal clear ocean">
-        <div class="dest-ov"></div>
-        <div class="dest-lbl">
-          <span class="dest-ctry" data-lang-th="มหาสมุทรอินเดีย" data-lang-en="Indian Ocean">มหาสมุทรอินเดีย</span>
-          <span class="dest-city" data-lang-th="เซเชลส์" data-lang-en="Seychelles">เซเชลส์</span>
-          <span class="dest-pkgs" data-lang-th="4 แพ็คเกจ" data-lang-en="4 packages">4 แพ็คเกจ</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<hr class="rb-rule">
-
-<!-- DEALS -->
-<section class="deals-sec" id="deals">
-  <div class="sw deals-inner">
-    <div class="deals-hdr">
-      <div>
-        <span class="issue" style="color:var(--yellow);font-family:'Zilla Slab',serif;font-size:.66rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:.5rem" data-lang-th="โปรโมชั่นพิเศษ" data-lang-en="SPECIAL DEALS">โปรโมชั่นพิเศษ</span>
-        <h2 class="rev" data-lang-th="ดีลร้อนแรง" data-lang-en="Hot Deals">ดีลร้อนแรง</h2>
-      </div>
-      <a href="#contact" class="btn-y rev" style="align-self:flex-end">
-        <span data-lang-th="ดูทั้งหมด" data-lang-en="View All">ดูทั้งหมด</span>
-        <i data-lucide="chevron-right" width="16" height="16"></i>
-      </a>
-    </div>
-    <div class="deal-list">
-
-      <div class="deal-item rev">
-        <div>
-          <div class="deal-name" data-lang-th="ทัวร์สวิตเซอร์แลนด์ + ออสเตรีย 9 วัน" data-lang-en="Switzerland + Austria 9-Day Tour">ทัวร์สวิตเซอร์แลนด์ + ออสเตรีย 9 วัน</div>
-          <div class="deal-badges" style="margin-top:.5rem">
-            <span class="deal-bdg bdg-days"><i data-lucide="calendar" width="11" height="11"></i><span data-lang-th="9 วัน 8 คืน" data-lang-en="9D 8N">9 วัน 8 คืน</span></span>
-            <span class="deal-bdg bdg-inc"><i data-lucide="check" width="11" height="11"></i><span data-lang-th="รวมตั๋ว+โรงแรม" data-lang-en="Flights+Hotel">รวมตั๋ว+โรงแรม</span></span>
-          </div>
-        </div>
-        <div class="deal-pr"><span class="deal-old">฿98,000</span><span class="deal-new">฿79,900</span></div>
-      </div>
-
-      <div class="deal-item rev d1">
-        <div>
-          <div class="deal-name" data-lang-th="ทัวร์เกาหลี โซล–เชจู 6 วัน" data-lang-en="Korea: Seoul–Jeju 6-Day Tour">ทัวร์เกาหลี โซล–เชจู 6 วัน</div>
-          <div class="deal-badges" style="margin-top:.5rem">
-            <span class="deal-bdg bdg-days"><i data-lucide="calendar" width="11" height="11"></i><span data-lang-th="6 วัน 5 คืน" data-lang-en="6D 5N">6 วัน 5 คืน</span></span>
-            <span class="deal-bdg bdg-inc"><i data-lucide="check" width="11" height="11"></i><span data-lang-th="รวมตั๋ว+ที่พัก+อาหาร" data-lang-en="Flights+Hotel+Meals">รวมตั๋ว+ที่พัก+อาหาร</span></span>
-          </div>
-        </div>
-        <div class="deal-pr"><span class="deal-old">฿45,000</span><span class="deal-new">฿34,900</span></div>
-      </div>
-
-      <div class="deal-item rev d2">
-        <div>
-          <div class="deal-name" data-lang-th="ทัวร์ตุรกี อิสตันบูล–คัปปาโดเกีย 8 วัน" data-lang-en="Türkiye: Istanbul–Cappadocia 8 Days">ทัวร์ตุรกี อิสตันบูล–คัปปาโดเกีย 8 วัน</div>
-          <div class="deal-badges" style="margin-top:.5rem">
-            <span class="deal-bdg bdg-days"><i data-lucide="calendar" width="11" height="11"></i><span data-lang-th="8 วัน 7 คืน" data-lang-en="8D 7N">8 วัน 7 คืน</span></span>
-            <span class="deal-bdg bdg-inc"><i data-lucide="check" width="11" height="11"></i><span data-lang-th="รวมบอลลูน+โรงแรม" data-lang-en="Balloon+Hotel Incl.">รวมบอลลูน+โรงแรม</span></span>
-          </div>
-        </div>
-        <div class="deal-pr"><span class="deal-old">฿75,000</span><span class="deal-new">฿58,500</span></div>
-      </div>
-
-      <div class="deal-item rev d3">
-        <div>
-          <div class="deal-name" data-lang-th="ทัวร์อิตาลี โรม–ฟลอเรนซ์–เวนิส 10 วัน" data-lang-en="Italy: Rome–Florence–Venice 10 Days">ทัวร์อิตาลี โรม–ฟลอเรนซ์–เวนิส 10 วัน</div>
-          <div class="deal-badges" style="margin-top:.5rem">
-            <span class="deal-bdg bdg-days"><i data-lucide="calendar" width="11" height="11"></i><span data-lang-th="10 วัน 9 คืน" data-lang-en="10D 9N">10 วัน 9 คืน</span></span>
-            <span class="deal-bdg bdg-inc"><i data-lucide="check" width="11" height="11"></i><span data-lang-th="รวมตั๋ว+โรงแรม 4 ดาว" data-lang-en="Flights+4★ Hotel">รวมตั๋ว+โรงแรม 4 ดาว</span></span>
-          </div>
-        </div>
-        <div class="deal-pr"><span class="deal-old">฿92,000</span><span class="deal-new">฿75,000</span></div>
-      </div>
-
-    </div>
-  </div>
-</section>
+<div class="diagonal-dark"></div>
 
 <!-- HOW IT WORKS -->
-<section class="how-sec" id="how">
-  <div class="sw">
-    <div class="ed-head rev">
-      <span class="issue" data-lang-th="ขั้นตอนง่ายๆ" data-lang-en="SIMPLE STEPS">ขั้นตอนง่ายๆ</span>
-      <h2 data-lang-th="จองทัวร์ ง่ายใน 4 ขั้น" data-lang-en="Book a Tour in 4 Easy Steps">จองทัวร์ ง่ายใน 4 ขั้น</h2>
-      <span class="hand" data-lang-th="ให้เราจัดการทุกอย่าง คุณแค่เตรียมกระเป๋า" data-lang-en="We handle everything — you just pack your bags">ให้เราจัดการทุกอย่าง คุณแค่เตรียมกระเป๋า</span>
+<section class="section how" id="how" style="background:var(--midnight)">
+  <div class="section__label">
+    <span data-lang-th="ขั้นตอนการจอง" data-lang-en="Booking Process">ขั้นตอนการจอง</span>
+  </div>
+  <h2 class="section__title reveal" data-lang-th="จองทัวร์ง่ายใน 4 ขั้นตอน" data-lang-en="Book Your Tour in 4 Simple Steps">จองทัวร์ง่ายใน 4 ขั้นตอน</h2>
+  <p class="section__body reveal" data-lang-th="เราทำให้การวางแผนท่องเที่ยวเป็นเรื่องง่ายและสนุกตั้งแต่ต้นจนจบ" data-lang-en="We make travel planning effortless and enjoyable from start to finish.">เราทำให้การวางแผนท่องเที่ยวเป็นเรื่องง่ายและสนุกตั้งแต่ต้นจนจบ</p>
+
+  <div class="how__steps" style="margin-top:3rem;max-width:560px">
+    <div class="how__step reveal">
+      <div class="how__step-line">
+        <div class="how__step-dot"><i data-lucide="search" width="14" height="14"></i></div>
+        <div class="how__step-connector"></div>
+      </div>
+      <div class="how__step-content">
+        <div class="how__step-title" data-lang-th="เลือกแพ็คเกจที่ใช่" data-lang-en="Choose Your Package">เลือกแพ็คเกจที่ใช่</div>
+        <div class="how__step-desc" data-lang-th="เรียกดูแพ็คเกจทัวร์ทั้งหมดหรือปรึกษาผู้เชี่ยวชาญของเราเพื่อรับคำแนะนำที่เหมาะสมกับงบประมาณและความต้องการของคุณ" data-lang-en="Browse our full range of packages or consult our travel experts for personalized recommendations based on your budget and travel style.">เรียกดูแพ็คเกจทัวร์ทั้งหมดหรือปรึกษาผู้เชี่ยวชาญของเราเพื่อรับคำแนะนำที่เหมาะสมกับงบประมาณและความต้องการของคุณ</div>
+      </div>
     </div>
-    <div class="how-steps">
-      <div class="how-step rev d1">
-        <div class="how-left">
-          <div class="how-num">01</div>
-          <div class="how-line"></div>
-        </div>
-        <div class="how-body">
-          <h3 data-lang-th="เลือกแพ็คเกจที่ชอบ" data-lang-en="Choose Your Package">เลือกแพ็คเกจที่ชอบ</h3>
-          <p data-lang-th="เลือกจากแพ็คเกจทัวร์กว่า 200 รายการ หรือแจ้งความต้องการเพื่อออกแบบทัวร์เฉพาะคุณ" data-lang-en="Browse 200+ packages or tell us what you want — we'll craft a tour just for you.">เลือกจากแพ็คเกจทัวร์กว่า 200 รายการ หรือแจ้งความต้องการเพื่อออกแบบทัวร์เฉพาะคุณ</p>
-        </div>
+
+    <div class="how__step reveal">
+      <div class="how__step-line">
+        <div class="how__step-dot"><i data-lucide="clipboard-list" width="14" height="14"></i></div>
+        <div class="how__step-connector"></div>
       </div>
-      <div class="how-step rev d2">
-        <div class="how-left">
-          <div class="how-num">02</div>
-          <div class="how-line"></div>
-        </div>
-        <div class="how-body">
-          <h3 data-lang-th="ติดต่อและยืนยัน" data-lang-en="Contact & Confirm">ติดต่อและยืนยัน</h3>
-          <p data-lang-th="โทรหาเรา หรือส่งข้อมูลผ่านแบบฟอร์ม ทีมงานจะติดต่อกลับภายใน 1 ชั่วโมง" data-lang-en="Call us or submit the form. Our team responds within 1 hour to confirm your booking.">โทรหาเรา หรือส่งข้อมูลผ่านแบบฟอร์ม ทีมงานจะติดต่อกลับภายใน 1 ชั่วโมง</p>
-        </div>
+      <div class="how__step-content">
+        <div class="how__step-title" data-lang-th="กรอกข้อมูลและยืนยัน" data-lang-en="Fill In Details & Confirm">กรอกข้อมูลและยืนยัน</div>
+        <div class="how__step-desc" data-lang-th="กรอกรายละเอียดของผู้เดินทางและวันที่ที่ต้องการ ทีมงานจะตรวจสอบความพร้อมและส่งใบยืนยันทันที" data-lang-en="Fill in traveler details and your preferred dates. Our team will verify availability and send you a confirmation instantly.">กรอกรายละเอียดของผู้เดินทางและวันที่ที่ต้องการ ทีมงานจะตรวจสอบความพร้อมและส่งใบยืนยันทันที</div>
       </div>
-      <div class="how-step rev d3">
-        <div class="how-left">
-          <div class="how-num">03</div>
-          <div class="how-line"></div>
-        </div>
-        <div class="how-body">
-          <h3 data-lang-th="ชำระเงิน" data-lang-en="Make Payment">ชำระเงิน</h3>
-          <p data-lang-th="ชำระได้หลายช่องทาง ทั้งโอนเงิน บัตรเครดิต และ QR Code รองรับผ่อน 0% ทุกธนาคาร" data-lang-en="Bank transfer, credit card, or QR Pay. 0% installment available with all major cards.">ชำระได้หลายช่องทาง ทั้งโอนเงิน บัตรเครดิต และ QR Code รองรับผ่อน 0% ทุกธนาคาร</p>
-        </div>
+    </div>
+
+    <div class="how__step reveal">
+      <div class="how__step-line">
+        <div class="how__step-dot"><i data-lucide="credit-card" width="14" height="14"></i></div>
+        <div class="how__step-connector"></div>
       </div>
-      <div class="how-step rev d4">
-        <div class="how-left">
-          <div class="how-num">04</div>
-          <div class="how-line"></div>
-        </div>
-        <div class="how-body">
-          <h3 data-lang-th="เดินทางและเพลิดเพลิน" data-lang-en="Travel & Enjoy">เดินทางและเพลิดเพลิน</h3>
-          <p data-lang-th="รับเอกสารครบชุด พบไกด์ที่สนามบิน แล้วปล่อยใจไปกับการเดินทางที่เราดูแลทุกอย่าง" data-lang-en="Pick up your docs, meet your guide at the airport — we take care of everything from there.">รับเอกสารครบชุด พบไกด์ที่สนามบิน แล้วปล่อยใจไปกับการเดินทางที่เราดูแลทุกอย่าง</p>
-        </div>
+      <div class="how__step-content">
+        <div class="how__step-title" data-lang-th="ชำระเงินอย่างปลอดภัย" data-lang-en="Secure Payment">ชำระเงินอย่างปลอดภัย</div>
+        <div class="how__step-desc" data-lang-th="ชำระมัดจำเพียง 30% เพื่อยืนยันที่นั่ง ส่วนที่เหลือชำระก่อนการเดินทาง 30 วัน รองรับบัตรเครดิต โอนเงิน และ PromptPay" data-lang-en="Pay just 30% deposit to secure your booking. Balance due 30 days before departure. We accept all major cards, bank transfer, and PromptPay.">ชำระมัดจำเพียง 30% เพื่อยืนยันที่นั่ง ส่วนที่เหลือชำระก่อนการเดินทาง 30 วัน รองรับบัตรเครดิต โอนเงิน และ PromptPay</div>
+      </div>
+    </div>
+
+    <div class="how__step reveal">
+      <div class="how__step-line">
+        <div class="how__step-dot"><i data-lucide="plane" width="14" height="14"></i></div>
+      </div>
+      <div class="how__step-content">
+        <div class="how__step-title" data-lang-th="เดินทางแล้วสัมผัสโลก" data-lang-en="Pack Up & Explore">เดินทางแล้วสัมผัสโลก</div>
+        <div class="how__step-desc" data-lang-th="รับเอกสารการเดินทางครบชุดก่อนออกเดินทาง และมีทีม 24 ชั่วโมงพร้อมช่วยเหลือตลอดการเดินทาง" data-lang-en="Receive your complete travel kit before departure, and enjoy 24/7 support from our team throughout your journey. We're always there.">รับเอกสารการเดินทางครบชุดก่อนออกเดินทาง และมีทีม 24 ชั่วโมงพร้อมช่วยเหลือตลอดการเดินทาง</div>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="rb-rule">
+<div class="glow-line"></div>
 
 <!-- TESTIMONIALS -->
-<section class="testi-sec">
-  <div class="sw">
-    <div class="ed-head rev">
-      <span class="issue" data-lang-th="เสียงจากลูกค้า" data-lang-en="CUSTOMER VOICES">เสียงจากลูกค้า</span>
-      <h2 data-lang-th="พวกเขาบอกว่า..." data-lang-en="What Travelers Say">พวกเขาบอกว่า...</h2>
-      <span class="hand" data-lang-th="ความทรงจำที่ดีที่สุด เริ่มต้นจากการเดินทาง" data-lang-en="The best memories start with a great journey">ความทรงจำที่ดีที่สุด เริ่มต้นจากการเดินทาง</span>
+<section class="section testimonials" id="testimonials">
+  <div class="section__label">
+    <span data-lang-th="เสียงจากลูกค้า" data-lang-en="Customer Stories">เสียงจากลูกค้า</span>
+  </div>
+  <h2 class="section__title reveal" data-lang-th="พวกเขาพูดถึงเรา" data-lang-en="What Our Travelers Say">พวกเขาพูดถึงเรา</h2>
+
+  <div class="testimonials__track" style="margin-top:2rem">
+    <div class="testi-card reveal">
+      <div class="testi-stars">
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+      </div>
+      <div class="testi-card__quote">"</div>
+      <div class="testi-card__text" data-lang-th="ทริปมัลดีฟส์กับ Rainbow Travel ดีเกินคาด ทุกอย่างถูกจัดการมาอย่างสมบูรณ์แบบ ทั้งโรงแรม อาหาร และกิจกรรม ประทับใจมากค่ะ" data-lang-en="The Maldives trip with Rainbow Travel exceeded all expectations. Everything was perfectly arranged — hotels, dining, and activities. Absolutely flawless.">ทริปมัลดีฟส์กับ Rainbow Travel ดีเกินคาด ทุกอย่างถูกจัดการมาอย่างสมบูรณ์แบบ ทั้งโรงแรม อาหาร และกิจกรรม ประทับใจมากค่ะ</div>
+      <div class="testi-card__author">
+        <div class="testi-card__avatar"><i data-lucide="user" width="16" height="16"></i></div>
+        <div>
+          <div class="testi-card__name">นภัสสร วิชัยดิษฐ</div>
+          <div class="testi-card__trip" data-lang-th="มัลดีฟส์ 7 วัน" data-lang-en="Maldives 7 Days">มัลดีฟส์ 7 วัน</div>
+        </div>
+      </div>
     </div>
-    <div class="testi-grid">
-      <div class="testi-card rev">
-        <div class="testi-stars">
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-        </div>
-        <p class="testi-q" data-lang-th='"ทัวร์มัลดีฟส์สุดวิเศษมาก วิลล่าเหนือน้ำสวยมากเกินคาด ไกด์ดูแลดีมาก จะกลับมาใช้บริการอีกแน่นอน!"' data-lang-en='"The Maldives tour was absolutely magical. The overwater villa exceeded every expectation. Will definitely book again!"'>"ทัวร์มัลดีฟส์สุดวิเศษมาก วิลล่าเหนือน้ำสวยมากเกินคาด ไกด์ดูแลดีมาก จะกลับมาใช้บริการอีกแน่นอน!"</p>
-        <div class="testi-auth">
-          <img class="testi-av" src="https://images.unsplash.com/photo-1565128933797-a62f8e849e83?w=88&h=88&fit=crop&crop=face" alt="Customer photo">
-          <div>
-            <div class="testi-name">คุณสุภาพร ใจดี</div>
-            <div class="testi-trip" data-lang-th="ทัวร์มัลดีฟส์ 5 วัน" data-lang-en="Maldives 5-Day Tour">ทัวร์มัลดีฟส์ 5 วัน</div>
-          </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-stars">
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+      </div>
+      <div class="testi-card__quote">"</div>
+      <div class="testi-card__text" data-lang-th="เที่ยวญี่ปุ่นครั้งแรกในชีวิต ไกด์ดูแลดีมาก พาไปสถานที่ที่ไม่มีในคู่มือทัวร์ทั่วไป ได้สัมผัสวัฒนธรรมญี่ปุ่นจริงๆ ขอบคุณ Rainbow Travel ครับ" data-lang-en="My first trip to Japan and it was truly special. Our guide took us to hidden gems not in any standard itinerary. A genuine cultural immersion. Thank you, Rainbow Travel!">เที่ยวญี่ปุ่นครั้งแรกในชีวิต ไกด์ดูแลดีมาก พาไปสถานที่ที่ไม่มีในคู่มือทัวร์ทั่วไป ได้สัมผัสวัฒนธรรมญี่ปุ่นจริงๆ ขอบคุณ Rainbow Travel ครับ</div>
+      <div class="testi-card__author">
+        <div class="testi-card__avatar"><i data-lucide="user" width="16" height="16"></i></div>
+        <div>
+          <div class="testi-card__name">พิษณุ ทองเจริญ</div>
+          <div class="testi-card__trip" data-lang-th="ญี่ปุ่น 6 วัน" data-lang-en="Japan 6 Days">ญี่ปุ่น 6 วัน</div>
         </div>
       </div>
-      <div class="testi-card rev d1">
-        <div class="testi-stars">
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-        </div>
-        <p class="testi-q" data-lang-th='"ไปญี่ปุ่นช่วงซากุระบานกับ Rainbow Travel ประทับใจมาก โปรแกรมแน่นมาก คุ้มค่าสุดๆ แนะนำเลยครับ"' data-lang-en='"Japan cherry blossom season with Rainbow Travel — packed program, excellent value. Highly recommended!"'>"ไปญี่ปุ่นช่วงซากุระบานกับ Rainbow Travel ประทับใจมาก โปรแกรมแน่นมาก คุ้มค่าสุดๆ แนะนำเลยครับ"</p>
-        <div class="testi-auth">
-          <img class="testi-av" src="https://images.unsplash.com/photo-1521510186458-bbbda7aef46b?w=88&h=88&fit=crop&crop=face" alt="Customer photo">
-          <div>
-            <div class="testi-name">คุณวิชัย มั่นคง</div>
-            <div class="testi-trip" data-lang-th="ทัวร์ญี่ปุ่น 7 วัน" data-lang-en="Japan 7-Day Tour">ทัวร์ญี่ปุ่น 7 วัน</div>
-          </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-stars">
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+      </div>
+      <div class="testi-card__quote">"</div>
+      <div class="testi-card__text" data-lang-th="ราคาเป็นธรรม ไม่มีค่าใช้จ่ายซ่อน ไกด์เป็นกันเอง ทริปยุโรปของครอบครัวเราสมบูรณ์แบบมาก จะกลับมาจองอีกแน่นอน" data-lang-en="Fair pricing, zero hidden costs, and the most personable guide. Our family Europe trip was perfect in every way. We'll definitely be booking again.">ราคาเป็นธรรม ไม่มีค่าใช้จ่ายซ่อน ไกด์เป็นกันเอง ทริปยุโรปของครอบครัวเราสมบูรณ์แบบมาก จะกลับมาจองอีกแน่นอน</div>
+      <div class="testi-card__author">
+        <div class="testi-card__avatar"><i data-lucide="user" width="16" height="16"></i></div>
+        <div>
+          <div class="testi-card__name">สุภาวดี แสงทอง</div>
+          <div class="testi-card__trip" data-lang-th="ยุโรป 12 วัน" data-lang-en="Europe 12 Days">ยุโรป 12 วัน</div>
         </div>
       </div>
-      <div class="testi-card rev d2">
-        <div class="testi-stars">
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-          <i data-lucide="star" width="15" height="15" style="fill:var(--yellow);color:var(--yellow)"></i>
-        </div>
-        <p class="testi-q" data-lang-th='"ยุโรป 5 ประเทศสุดประทับใจ ไม่ต้องเป็นห่วงวีซ่า ตั๋ว โรงแรมเลย ทีมงาน Rainbow Travel จัดการให้ครบ"' data-lang-en='"Western Europe 5 countries — zero stress. Visa, flights, hotels — all perfectly arranged. Just showed up and enjoyed."'>"ยุโรป 5 ประเทศสุดประทับใจ ไม่ต้องเป็นห่วงวีซ่า ตั๋ว โรงแรมเลย ทีมงาน Rainbow Travel จัดการให้ครบ"</p>
-        <div class="testi-auth">
-          <img class="testi-av" src="https://picsum.photos/seed/trvlr3/88/88" alt="Customer photo">
-          <div>
-            <div class="testi-name">คุณพิมพ์ใจ รุ่งเรือง</div>
-            <div class="testi-trip" data-lang-th="ทัวร์ยุโรป 10 วัน" data-lang-en="Europe 10-Day Tour">ทัวร์ยุโรป 10 วัน</div>
-          </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-stars">
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+        <i data-lucide="star" width="13" height="13" style="fill:currentColor"></i>
+      </div>
+      <div class="testi-card__quote">"</div>
+      <div class="testi-card__text" data-lang-th="บริการดีเยี่ยมตั้งแต่ก่อนเดินทางจนกลับบ้าน ทีมงาน 24 ชั่วโมงช่วยเหลือทันทีเมื่อมีปัญหา ทำให้เดินทางได้อย่างสบายใจจริงๆ" data-lang-en="Exceptional service from pre-departure all the way home. The 24-hour team responded instantly when I had an issue mid-trip. Truly peace of mind travel.">บริการดีเยี่ยมตั้งแต่ก่อนเดินทางจนกลับบ้าน ทีมงาน 24 ชั่วโมงช่วยเหลือทันทีเมื่อมีปัญหา ทำให้เดินทางได้อย่างสบายใจจริงๆ</div>
+      <div class="testi-card__author">
+        <div class="testi-card__avatar"><i data-lucide="user" width="16" height="16"></i></div>
+        <div>
+          <div class="testi-card__name">ธนวัฒน์ ศรีชัย</div>
+          <div class="testi-card__trip" data-lang-th="สวิตเซอร์แลนด์ 9 วัน" data-lang-en="Switzerland 9 Days">สวิตเซอร์แลนด์ 9 วัน</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA / CONTACT -->
-<section class="cta-sec" id="contact">
-  <div class="sw cta-inner">
-    <span class="cta-tag" data-lang-th="พร้อมออกเดินทาง?" data-lang-en="READY TO FLY?">พร้อมออกเดินทาง?</span>
-    <h2 class="rev">
-      <span data-lang-th="เริ่มการเดินทาง" data-lang-en="Start the Journey">เริ่มการเดินทาง</span><br>
-      <span data-lang-th="ในฝันของคุณ" data-lang-en="of a Lifetime">ใน<span style="color:var(--yellow)" data-lang-th="ฝัน" data-lang-en="Your Dreams">ฝัน</span>ของคุณ</span>
-    </h2>
-    <span class="cta-hand rev" data-lang-th="ฝากข้อมูลไว้ เราจะติดต่อกลับเร็วๆ นี้" data-lang-en="Leave your info — we'll be in touch shortly">ฝากข้อมูลไว้ เราจะติดต่อกลับเร็วๆ นี้</span>
-    <form class="cta-form rev" onsubmit="return false">
-      <div class="cta-row">
-        <input class="cta-inp" type="text" placeholder="ชื่อ-นามสกุล / Full Name" aria-label="Name">
-        <input class="cta-inp" type="tel" placeholder="เบอร์โทรศัพท์ / Phone" aria-label="Phone">
+<div class="glow-line"></div>
+
+<!-- FAQ -->
+<section class="section faq-sec" id="faq">
+  <div class="section__label reveal" style="justify-content:center"><span data-lang-th="ข้อสงสัย" data-lang-en="Got Questions">ข้อสงสัย</span></div>
+  <h2 class="section__title reveal" style="text-align:center" data-lang-th="คำถามที่พบบ่อย" data-lang-en="Frequently Asked Questions">คำถามที่พบบ่อย</h2>
+  <div class="faq">
+    <div class="qa reveal">
+      <div class="q"><span data-lang-th="ควรจองทัวร์ล่วงหน้ากี่วัน?" data-lang-en="How far in advance should I book?">ควรจองทัวร์ล่วงหน้ากี่วัน?</span><span class="pm">+</span></div>
+      <div class="ans"><p data-lang-th="แนะนำให้จองล่วงหน้าอย่างน้อย 7 วันสำหรับทัวร์ในประเทศ และ 30–45 วันสำหรับทัวร์ต่างประเทศ เพื่อให้ได้ราคาและที่พักที่ดีที่สุด ช่วงเทศกาลควรจองเร็วกว่านั้น" data-lang-en="We recommend booking at least 7 days ahead for domestic tours and 30–45 days for international tours, to secure the best prices and accommodation. Book earlier during holiday seasons.">แนะนำให้จองล่วงหน้าอย่างน้อย 7 วันสำหรับทัวร์ในประเทศ และ 30–45 วันสำหรับทัวร์ต่างประเทศ เพื่อให้ได้ราคาและที่พักที่ดีที่สุด ช่วงเทศกาลควรจองเร็วกว่านั้น</p></div>
+    </div>
+    <div class="qa reveal">
+      <div class="q"><span data-lang-th="ราคาทัวร์รวมอะไรบ้าง?" data-lang-en="What's included in the price?">ราคาทัวร์รวมอะไรบ้าง?</span><span class="pm">+</span></div>
+      <div class="ans"><p data-lang-th="รวมที่พัก อาหารตามรายการ รถรับส่ง และไกด์ดูแลตลอดทริป สำหรับทัวร์ต่างประเทศรวมตั๋วเครื่องบินและประกันการเดินทางด้วย รายละเอียดระบุในแต่ละแพ็กเกจ" data-lang-en="It includes accommodation, meals per the itinerary, transfers and a guide throughout the trip. International tours also include flights and travel insurance. Full details are listed in each package.">รวมที่พัก อาหารตามรายการ รถรับส่ง และไกด์ดูแลตลอดทริป สำหรับทัวร์ต่างประเทศรวมตั๋วเครื่องบินและประกันการเดินทางด้วย รายละเอียดระบุในแต่ละแพ็กเกจ</p></div>
+    </div>
+    <div class="qa reveal">
+      <div class="q"><span data-lang-th="ชำระเงินได้ทางไหนบ้าง?" data-lang-en="How can I pay?">ชำระเงินได้ทางไหนบ้าง?</span><span class="pm">+</span></div>
+      <div class="ans"><p data-lang-th="ชำระมัดจำเพื่อยืนยันการจอง และชำระส่วนที่เหลือก่อนเดินทาง ผ่านการโอนธนาคารหรือพร้อมเพย์" data-lang-en="Pay a deposit to confirm your booking, then the balance before departure — via bank transfer or PromptPay.">ชำระมัดจำเพื่อยืนยันการจอง และชำระส่วนที่เหลือก่อนเดินทาง ผ่านการโอนธนาคารหรือพร้อมเพย์</p></div>
+    </div>
+    <div class="qa reveal">
+      <div class="q"><span data-lang-th="ยกเลิกหรือเลื่อนทริปได้ไหม?" data-lang-en="Can I cancel or reschedule?">ยกเลิกหรือเลื่อนทริปได้ไหม?</span><span class="pm">+</span></div>
+      <div class="ans"><p data-lang-th="สามารถทำได้ตามเงื่อนไขของบริษัทฯ กรุณาติดต่อทีมงานล่วงหน้าเพื่อแจ้งความประสงค์" data-lang-en="Yes, subject to company terms. Please contact our team in advance to let us know.">สามารถทำได้ตามเงื่อนไขของบริษัทฯ กรุณาติดต่อทีมงานล่วงหน้าเพื่อแจ้งความประสงค์</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- CONTACT / CTA -->
+<section class="section contact" id="contact">
+  <div class="contact__inner">
+    <div class="section__label" style="justify-content:center">
+      <span data-lang-th="เริ่มต้นการเดินทาง" data-lang-en="Start Your Journey">เริ่มต้นการเดินทาง</span>
+    </div>
+    <h2 class="contact__heading reveal" data-lang-th="พร้อมออกเดินทางแล้วหรือยัง?" data-lang-en="Ready to Explore the World?">พร้อมออกเดินทางแล้วหรือยัง?</h2>
+    <p class="contact__sub reveal" data-lang-th="กรอกข้อมูลด้านล่างเพื่อรับคำปรึกษาฟรีจากทีมผู้เชี่ยวชาญ เราจะติดต่อกลับภายใน 24 ชั่วโมง" data-lang-en="Fill in the form below for a free consultation with our travel experts. We'll get back to you within 24 hours.">กรอกข้อมูลด้านล่างเพื่อรับคำปรึกษาฟรีจากทีมผู้เชี่ยวชาญ เราจะติดต่อกลับภายใน 24 ชั่วโมง</p>
+
+    <form class="contact__form reveal" onsubmit="return false">
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" data-lang-th="ชื่อ - นามสกุล" data-lang-en="Full Name">ชื่อ - นามสกุล</label>
+          <input class="form-input" type="text" placeholder="" aria-label="ชื่อ - นามสกุล">
+        </div>
+        <div class="form-field">
+          <label class="form-label" data-lang-th="เบอร์โทรศัพท์" data-lang-en="Phone Number">เบอร์โทรศัพท์</label>
+          <input class="form-input" type="tel" placeholder="" aria-label="เบอร์โทรศัพท์">
+        </div>
       </div>
-      <input class="cta-inp" type="text" placeholder="ต้องการไปที่ไหน? / Where do you want to go?" aria-label="Destination">
-      <button class="btn-y" style="width:100%;justify-content:center;font-size:1.02rem;padding:.95rem">
-        <i data-lucide="send" width="18" height="18"></i>
-        <span data-lang-th="ส่งข้อมูลเพื่อรับคำแนะนำฟรี" data-lang-en="Send & Get Free Consultation">ส่งข้อมูลเพื่อรับคำแนะนำฟรี</span>
+      <div class="form-field">
+        <label class="form-label" data-lang-th="อีเมล" data-lang-en="Email Address">อีเมล</label>
+        <input class="form-input" type="email" placeholder="" aria-label="อีเมล">
+      </div>
+      <div class="form-field">
+        <label class="form-label" data-lang-th="แพ็คเกจที่สนใจ" data-lang-en="Package of Interest">แพ็คเกจที่สนใจ</label>
+        <select class="form-select" aria-label="แพ็คเกจที่สนใจ">
+          <option value="" data-lang-th="-- เลือกแพ็คเกจ --" data-lang-en="-- Select Package --">-- เลือกแพ็คเกจ --</option>
+          <option value="maldives" data-lang-th="มัลดีฟส์" data-lang-en="Maldives">มัลดีฟส์</option>
+          <option value="japan" data-lang-th="ญี่ปุ่น" data-lang-en="Japan">ญี่ปุ่น</option>
+          <option value="santorini" data-lang-th="ซานโตรีนี" data-lang-en="Santorini">ซานโตรีนี</option>
+          <option value="paris" data-lang-th="ปารีส" data-lang-en="Paris">ปารีส</option>
+          <option value="swiss" data-lang-th="สวิตเซอร์แลนด์" data-lang-en="Switzerland">สวิตเซอร์แลนด์</option>
+          <option value="other" data-lang-th="อื่นๆ" data-lang-en="Other">อื่นๆ</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label" data-lang-th="ข้อความเพิ่มเติม" data-lang-en="Additional Message">ข้อความเพิ่มเติม</label>
+        <textarea class="form-textarea" aria-label="ข้อความเพิ่มเติม"></textarea>
+      </div>
+      <button type="submit" class="contact__submit">
+        <i data-lucide="send" width="16" height="16"></i>
+        <span data-lang-th="ส่งข้อมูลเพื่อรับคำปรึกษา" data-lang-en="Send & Get Free Consultation">ส่งข้อมูลเพื่อรับคำปรึกษา</span>
       </button>
     </form>
-    <div class="cta-contacts">
-      <a href="tel:+6621234567" class="cta-ci"><i data-lucide="phone" width="17" height="17"></i>02-123-4567</a>
-      <a href="#" class="cta-ci"><i data-lucide="message-circle" width="17" height="17"></i>LINE: @rainbowtravel</a>
-      <a href="mailto:info@rainbowtravel.th" class="cta-ci"><i data-lucide="mail" width="17" height="17"></i>info@rainbowtravel.th</a>
+
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-top:2rem" class="reveal">
+      <div style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted)">
+        <i data-lucide="phone" width="14" height="14" style="color:var(--cerulean)"></i>
+        <span>02-XXX-XXXX</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted)">
+        <i data-lucide="message-circle" width="14" height="14" style="color:var(--cerulean)"></i>
+        <span>Line: @rainbowtravel</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted)">
+        <i data-lucide="mail" width="14" height="14" style="color:var(--cerulean)"></i>
+        <span>hello@rainbowtravel.co.th</span>
+      </div>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="sw">
-    <div class="ft-grid">
-      <div class="ft-brand">
-        <div class="ft-brand-logo">
-          <span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#FF5C39,#FFD300,#4F6FE8);flex-shrink:0"></span>
-          Rainbow Travel
+<footer>
+  <div class="footer__inner">
+    <div>
+      <div class="footer__logo">
+        <span class="footer__logo-arc">&#9651;</span>
+        Rainbow Travel
+      </div>
+      <p class="footer__tagline" data-lang-th="เดินทางอย่างมีความหมาย สัมผัสโลกอย่างลึกซึ้ง กับผู้เชี่ยวชาญด้านการท่องเที่ยวที่ไว้ใจได้" data-lang-en="Travel with meaning. Experience the world deeply. With trusted travel experts by your side.">เดินทางอย่างมีความหมาย สัมผัสโลกอย่างลึกซึ้ง กับผู้เชี่ยวชาญด้านการท่องเที่ยวที่ไว้ใจได้</p>
+      <div class="footer__social">
+        <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="14" height="14"></i></a>
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="14" height="14"></i></a>
+        <a href="#" aria-label="YouTube"><i data-lucide="youtube" width="14" height="14"></i></a>
+        <a href="#" aria-label="Line"><i data-lucide="message-square" width="14" height="14"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer__col-title" data-lang-th="แพ็คเกจ" data-lang-en="Packages">แพ็คเกจ</div>
+      <ul class="footer__links">
+        <li><a href="#" data-lang-th="เอเชีย" data-lang-en="Asia">เอเชีย</a></li>
+        <li><a href="#" data-lang-th="ยุโรป" data-lang-en="Europe">ยุโรป</a></li>
+        <li><a href="#" data-lang-th="มหาสมุทรอินเดีย" data-lang-en="Indian Ocean">มหาสมุทรอินเดีย</a></li>
+        <li><a href="#" data-lang-th="อเมริกา" data-lang-en="Americas">อเมริกา</a></li>
+        <li><a href="#" data-lang-th="แพ็คเกจฮันนีมูน" data-lang-en="Honeymoon">แพ็คเกจฮันนีมูน</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer__col-title" data-lang-th="เกี่ยวกับเรา" data-lang-en="Company">เกี่ยวกับเรา</div>
+      <ul class="footer__links">
+        <li><a href="#" data-lang-th="ประวัติบริษัท" data-lang-en="About Us">ประวัติบริษัท</a></li>
+        <li><a href="#" data-lang-th="ทีมงาน" data-lang-en="Our Team">ทีมงาน</a></li>
+        <li><a href="#" data-lang-th="ใบอนุญาต" data-lang-en="License">ใบอนุญาต</a></li>
+        <li><a href="#" data-lang-th="บล็อกท่องเที่ยว" data-lang-en="Travel Blog">บล็อกท่องเที่ยว</a></li>
+        <li><a href="#" data-lang-th="นโยบายความเป็นส่วนตัว" data-lang-en="Privacy Policy">นโยบายความเป็นส่วนตัว</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer__col-title" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</div>
+      <div class="footer__contact-items">
+        <div class="footer__contact-item">
+          <i data-lucide="map-pin" width="14" height="14"></i>
+          <span data-lang-th="123 ถนนสุขุมวิท แขวงคลองเตย กรุงเทพฯ 10110" data-lang-en="123 Sukhumvit Rd, Khlong Toei, Bangkok 10110">123 ถนนสุขุมวิท แขวงคลองเตย กรุงเทพฯ 10110</span>
         </div>
-        <p data-lang-th="บริษัททัวร์คุณภาพ ให้บริการจัดทัวร์ต่างประเทศและในประเทศมากว่า 12 ปี รับรองโดยการท่องเที่ยวแห่งประเทศไทย" data-lang-en="Quality tour operator serving Thailand for 12+ years. Licensed and certified by the Tourism Authority of Thailand.">บริษัททัวร์คุณภาพ ให้บริการจัดทัวร์ต่างประเทศและในประเทศมากว่า 12 ปี รับรองโดยการท่องเที่ยวแห่งประเทศไทย</p>
-      </div>
-      <div class="ft-col">
-        <h4 data-lang-th="แพ็คเกจทัวร์" data-lang-en="TOURS">แพ็คเกจทัวร์</h4>
-        <ul>
-          <li><a href="#" data-lang-th="ทัวร์ยุโรป" data-lang-en="Europe Tours">ทัวร์ยุโรป</a></li>
-          <li><a href="#" data-lang-th="ทัวร์ญี่ปุ่น" data-lang-en="Japan Tours">ทัวร์ญี่ปุ่น</a></li>
-          <li><a href="#" data-lang-th="ทัวร์มัลดีฟส์" data-lang-en="Maldives Tours">ทัวร์มัลดีฟส์</a></li>
-          <li><a href="#" data-lang-th="ทัวร์เกาหลี" data-lang-en="Korea Tours">ทัวร์เกาหลี</a></li>
-          <li><a href="#" data-lang-th="ทัวร์ตุรกี" data-lang-en="Türkiye Tours">ทัวร์ตุรกี</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4 data-lang-th="บริการ" data-lang-en="SERVICES">บริการ</h4>
-        <ul>
-          <li><a href="#" data-lang-th="ทัวร์กรุ๊ป" data-lang-en="Group Tours">ทัวร์กรุ๊ป</a></li>
-          <li><a href="#" data-lang-th="ทัวร์ส่วนตัว" data-lang-en="Private Tours">ทัวร์ส่วนตัว</a></li>
-          <li><a href="#" data-lang-th="ทัวร์ฮันนีมูน" data-lang-en="Honeymoon">ทัวร์ฮันนีมูน</a></li>
-          <li><a href="#" data-lang-th="ทัวร์ครอบครัว" data-lang-en="Family Tours">ทัวร์ครอบครัว</a></li>
-          <li><a href="#" data-lang-th="ทัวร์ MICE" data-lang-en="MICE Tours">ทัวร์ MICE</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4 data-lang-th="ติดต่อเรา" data-lang-en="CONTACT">ติดต่อเรา</h4>
-        <ul>
-          <li><span class="ft-addr" data-lang-th="123 ถ.สีลม เขตบางรัก กรุงเทพฯ 10500" data-lang-en="123 Silom Rd, Bang Rak, Bangkok 10500">123 ถ.สีลม เขตบางรัก กรุงเทพฯ 10500</span></li>
-          <li><a href="tel:+6621234567">02-123-4567</a></li>
-          <li><a href="mailto:info@rainbowtravel.th">info@rainbowtravel.th</a></li>
-        </ul>
+        <div class="footer__contact-item">
+          <i data-lucide="phone" width="14" height="14"></i>
+          <span>02-XXX-XXXX</span>
+        </div>
+        <div class="footer__contact-item">
+          <i data-lucide="mail" width="14" height="14"></i>
+          <span>hello@rainbowtravel.co.th</span>
+        </div>
+        <div class="footer__contact-item">
+          <i data-lucide="clock" width="14" height="14"></i>
+          <span data-lang-th="จ–ศ 9:00–18:00 น." data-lang-en="Mon–Sat 9:00–18:00">จ–ศ 9:00–18:00 น.</span>
+        </div>
       </div>
     </div>
-    <hr class="rb-rule" style="margin-bottom:1.4rem">
-    <div class="ft-bot">
-      <p data-lang-th="© 2025 Rainbow Travel Co., Ltd. สงวนลิขสิทธิ์ทุกประการ · ใบอนุญาตนำเที่ยว TAT No. 11/12345" data-lang-en="© 2025 Rainbow Travel Co., Ltd. All rights reserved · TAT License No. 11/12345">© 2025 Rainbow Travel Co., Ltd. สงวนลิขสิทธิ์ทุกประการ · ใบอนุญาตนำเที่ยว TAT No. 11/12345</p>
-    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <span data-lang-th="© 2024 Rainbow Travel Co., Ltd. สงวนลิขสิทธิ์ทุกประการ" data-lang-en="© 2024 Rainbow Travel Co., Ltd. All rights reserved.">© 2024 Rainbow Travel Co., Ltd. สงวนลิขสิทธิ์ทุกประการ</span>
+    <span data-lang-th="ใบอนุญาตนำเที่ยว เลขที่ 11/XXXXX" data-lang-en="Tour License No. 11/XXXXX">ใบอนุญาตนำเที่ยว เลขที่ 11/XXXXX</span>
   </div>
 </footer>
 
-<script src="https://unpkg.com/lucide@0.460.0"></script>
-<script>
-// Mobile menu
-var ham=document.getElementById('ham'),mMn=document.getElementById('mMn'),mOv=document.getElementById('mOv');
-function toggleMob(){mMn.classList.toggle('open');mOv.classList.toggle('open')}
-ham.addEventListener('click',toggleMob);
-mOv.addEventListener('click',toggleMob);
-mMn.querySelectorAll('a').forEach(function(a){a.addEventListener('click',toggleMob)});
+<!-- Floating buttons -->
+<div class="fab">
+  <a class="line" href="#contact" aria-label="Line" title="Line"><i data-lucide="message-circle"></i></a>
+  <button class="top" aria-label="Back to top" title="Back to top"><i data-lucide="arrow-up"></i></button>
+</div>
 
+<script>
 // Navbar scroll
-var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+(function(){
+  var nav=document.getElementById('navbar');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>60){nav.classList.add('scrolled')}
+    else{nav.classList.remove('scrolled')}
+  },{passive:true});
+})();
+
+// Hamburger menu
+(function(){
+  var btn=document.getElementById('hamburger');
+  var menu=document.getElementById('mobileMenu');
+  btn.addEventListener('click',function(){
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+})();
 
 // Scroll reveal
-var revEls=document.querySelectorAll('.rev');
-var ro=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
-},{threshold:0.1});
-revEls.forEach(function(el){ro.observe(el)});
+(function(){
+  var els=document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+    });
+  },{threshold:0.12});
+  els.forEach(function(el){io.observe(el)});
+})();
 
-// Drag-scroll destinations
-var ds=document.getElementById('destScr'),isDn=false,sX,sL;
-ds.addEventListener('mousedown',function(e){isDn=true;sX=e.pageX-ds.offsetLeft;sL=ds.scrollLeft;ds.style.cursor='grabbing'});
-ds.addEventListener('mouseleave',function(){isDn=false;ds.style.cursor='grab'});
-ds.addEventListener('mouseup',function(){isDn=false;ds.style.cursor='grab'});
-ds.addEventListener('mousemove',function(e){if(!isDn)return;e.preventDefault();ds.scrollLeft=sL-(e.pageX-ds.offsetLeft-sX)*1.5});
+// Hero heading HTML — render <em> and <br>
+(function(){
+  var h=document.querySelector('.hero__heading');
+  if(!h)return;
+  var th=h.getAttribute('data-lang-th');
+  var en=h.getAttribute('data-lang-en');
+  function renderHtml(str){return str.replace(/<em>/g,'<em>').replace(/<\/em>/g,'</em>').replace(/<br>/g,'<br>')}
+  h._langTh=th; h._langEn=en;
+  h.innerHTML=renderHtml(th);
+  h.removeAttribute('data-lang-th');
+  h.removeAttribute('data-lang-en');
+})();
 
-lucide.createIcons();
+// Hero image slow zoom
+(function(){
+  var bg=document.getElementById('heroBg');
+  if(bg){setTimeout(function(){bg.classList.add('loaded')},100)}
+})();
+
+// Parallax hero bg
+(function(){
+  var bg=document.getElementById('heroBg');
+  if(!bg)return;
+  window.addEventListener('scroll',function(){
+    var s=window.scrollY;
+    bg.style.transform='translateY('+s*.25+'px) scale(1.05)';
+  },{passive:true});
+})();
+
+// Count-up stats
+(function(){
+  function animCount(el){
+    var target=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),dur=1600,st=null;
+    function f(now){if(st===null)st=now;var p=Math.min((now-st)/dur,1);
+      el.textContent=dec?(target*p).toFixed(dec):Math.floor(target*p).toLocaleString();
+      if(p<1)requestAnimationFrame(f);else el.textContent=dec?target.toFixed(dec):target.toLocaleString();}
+    requestAnimationFrame(f);
+  }
+  var cnts=document.querySelectorAll('.cnt[data-count]');
+  if(!cnts.length)return;
+  if('IntersectionObserver'in window){
+    var cio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){animCount(e.target);cio.unobserve(e.target)}})},{threshold:.6});
+    cnts.forEach(function(e){cio.observe(e)});
+  }else{cnts.forEach(animCount)}
+})();
+
+// FAQ accordion
+(function(){
+  document.querySelectorAll('.faq .qa .q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement,open=item.classList.contains('open');
+      document.querySelectorAll('.faq .qa.open').forEach(function(o){o.classList.remove('open')});
+      if(!open)item.classList.add('open');
+    });
+  });
+})();
+
+// Scroll-to-top
+(function(){
+  var t=document.querySelector('.fab .top');if(!t)return;
+  window.addEventListener('scroll',function(){t.classList.toggle('show',window.scrollY>600)},{passive:true});
+  t.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+})();
 </script>
 
+<!-- Language switcher (exact script required) -->
 <script>
-(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){e.textContent=t}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+(function(){
+  // Patch heading back to bilingual
+  var h=document.querySelector('.hero__heading');
+  if(h&&h._langTh){
+    var origSwitcher=null;
+  }
+  // Extend switch to handle hero heading
+  var K='site-lang',L=localStorage.getItem(K)||'th';
+  function S(l){
+    L=l;localStorage.setItem(K,l);document.documentElement.lang=l;
+    document.querySelectorAll('[data-lang-th]').forEach(function(e){
+      var t=e.getAttribute('data-lang-'+l);if(t!==null){e.textContent=t}
+    });
+    // hero heading special
+    var hh=document.querySelector('.hero__heading');
+    if(hh&&hh._langTh){
+      var src=l==='th'?hh._langTh:hh._langEn;
+      hh.innerHTML=src.replace(/<em>/g,'<em>').replace(/<\/em>/g,'</em>').replace(/<br>/g,'<br>');
+    }
+    var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}
+  }
+  var sw=document.querySelector('.lang-sw');
+  if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}
+  if(L!=='th'){S(L)}
+})();
 </script>
+
+<script>lucide.createIcons();</script>
 </body>
 </html>
